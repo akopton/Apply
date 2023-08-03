@@ -1,0 +1,9 @@
+.btn {
+    border: 3px solid var(--primary-color);
+    padding: var(--btn-padding);
+    border-radius: var(--btn-border-radius);
+}
+
+.btnText {
+    font-size: var(--primary-font-size);
+}

@@ -4,9 +4,22 @@
 
 
 :root {
-    --primary-font: rgb(251, 254, 249),
-    --primary-color: rgb(206, 83, 116),
-    --secondary-color: rgb(69, 182, 156),
-    --primary-bg: rgb(40, 47, 68),
-    --secondary-bg: rgb(114, 147, 160)
+    --primary-font: rgb(251, 254, 249);
+    --primary-color: rgb(206, 83, 116);
+    --secondary-color: rgb(69, 182, 156);
+    --primary-bg: rgb(40, 47, 68);
+    --secondary-bg: rgb(114, 147, 160);
+    --btn-border-radius: 16px;
+    --btn-padding: 12px 24px;
+    --primary-font-size: 20px;
+}
+
+.light {
+    color: var(--primary-font);
+    background: var(--primary-bg);
+}
+
+.dark {
+    color: var(--primary-bg);
+    background-color: var(--primary-font);
 }
