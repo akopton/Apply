@@ -1,10 +1,7 @@
 import { AuthBtn } from "@/components/AuthBtn/AuthBtn";
-import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 
 export default function Home() {
-  const session = useSession();
-
   return (
     <>
       <Head>

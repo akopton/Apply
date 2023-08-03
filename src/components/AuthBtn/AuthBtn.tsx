@@ -1,5 +1,6 @@
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./btn.module.css";
+import { useRouter } from "next/router";
 
 type BtnProps = {
   provider?: string;
@@ -7,12 +8,30 @@ type BtnProps = {
 };
 
 export const AuthBtn = (props: BtnProps) => {
-  const handleClick = async () => {
-    !props.signOut ? await signIn(props.provider) : await signOut();
+  const login = async () => {
+    try {
+      await signIn(props.provider, {
+        callbackUrl: "/dashboard",
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await signOut({ callbackUrl: "/" });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <button type="button" onClick={handleClick} className={styles.btn}>
+    <button
+      type="button"
+      onClick={props.signOut ? () => void logout() : () => void login()}
+      className={styles.btn}
+    >
       <span className={styles.btnText}>
         {!props.signOut ? "Sign In" : "Sign Out"}
       </span>
