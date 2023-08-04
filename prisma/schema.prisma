@@ -52,11 +52,17 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-enum Status {
+enum status {
     sent
     opened
     answered
     rejected
+}
+
+model Status {
+    id          String        @id @default(cuid())
+    name        status
+    Application Application[]
 }
 
 model SearchPlatform {
@@ -70,7 +76,10 @@ model Application {
     id               String         @id @default(cuid())
     role             String
     company          String
-    platform         SearchPlatform @relation(fields: [searchPlatformId], references: [id])
-    status           Status
     searchPlatformId String
+    platform         SearchPlatform @relation(fields: [searchPlatformId], references: [id])
+    statusId         String
+    status           Status         @relation(fields: [statusId], references: [id])
+    hasFeedback      Boolean?
+    feedbackMsg      String?
 }
