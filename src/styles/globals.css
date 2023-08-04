@@ -23,3 +23,11 @@
     color: var(--primary-bg);
     background-color: var(--primary-font);
 }
+
+input,
+ul,
+ol,
+li,
+button {
+    all: unset;
+}
