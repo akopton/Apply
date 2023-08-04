@@ -1,0 +1,26 @@
+.form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: var(--secondary-bg);
+}
+
+.input {
+    border: 1px solid red;
+    background-color: var(--primary-bg);
+}
+
+.select {
+    background: var(--primary-bg);
+}
+
+.addBtn {
+    border: 2px solid var(--primary-color);
+    border-radius: var(--btn-border-radius);
+    padding: var(--btn-padding);
+    font-size: var(--primary-font-size);
+}
