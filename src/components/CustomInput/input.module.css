@@ -12,7 +12,7 @@
 .inputFieldWrapper .input {
   font-size: 20px;
   padding: 12px 10px;
-  border: 2px solid var(--secondary-bg);
+  border: 2px solid var(--primary-color);
   border-radius: 8px;
 }
 .inputFieldWrapper .input.error {
@@ -22,7 +22,7 @@
   border-color: var(--secondary-color);
 }
 .inputFieldWrapper .input:focus {
-  border-color: var(--primary-font);
+  border-color: var(--secondary-color);
 }
 .inputFieldWrapper .input:not(:-moz-placeholder-shown) ~ .floatingPlaceholder {
   transform: translateY(-12px) translateX(-2px);

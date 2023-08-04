@@ -39,6 +39,9 @@ export const ApplicationForm = () => {
               type="button"
               icon={<AiOutlineClose />}
               onClick={closeForm}
+              additionalStyles={{
+                border: "none",
+              }}
             />
           </div>
           <CustomInput
