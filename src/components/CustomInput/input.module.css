@@ -12,7 +12,7 @@
 .inputFieldWrapper .input {
   font-size: 20px;
   padding: 12px 10px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--secondary-bg);
   border-radius: 8px;
 }
 .inputFieldWrapper .input.error {
@@ -71,11 +71,11 @@
 .inputFieldWrapper .inputStatusIcon {
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 15px;
   transform: translateY(-50%);
 }
 .inputFieldError {
-  color: red;
+  color: var(--primary-color);
   font-size: 18px;
 }
 .inputField .errorLine {

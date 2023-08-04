@@ -2,24 +2,65 @@ import { useContext, useEffect, useState } from "react";
 import { Status } from "@prisma/client";
 import { CustomBtn } from "../CustomBtn/CustomBtn";
 import { ApplicationFormContext } from "@/context/FormContext";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineCheckCircle } from "react-icons/ai";
 import styles from "./form.module.css";
 import CustomInput from "../CustomInput/CustomInput";
-import { set } from "zod";
 
 export const ApplicationForm = () => {
   const [showContent, setShowContent] = useState(false);
-  const [role, setRole] = useState("");
-  const [company, setCompany] = useState("");
+  const [role, setRole] = useState({ name: "", error: "" });
+  const [company, setCompany] = useState({
+    name: "",
+    error: "",
+  });
+
   const [status, setStatus] = useState<Status>("sent");
   const { closeForm } = useContext(ApplicationFormContext);
 
+  const reset = () => {
+    setRole({ name: "", error: "" });
+    setCompany({ name: "", error: "" });
+    setStatus("sent");
+  };
+
   const handleRole = (e: React.FormEvent<HTMLInputElement>) => {
-    setRole(e.currentTarget.value);
+    const roleName = e.currentTarget.value;
+    setRole((prev) => ({
+      ...prev,
+      name: roleName,
+      error: "",
+    }));
   };
 
   const handleCompany = (e: React.FormEvent<HTMLInputElement>) => {
-    setCompany(e.currentTarget.value);
+    const companyName = e.currentTarget.value;
+    setCompany((prev) => ({
+      ...prev,
+      name: companyName,
+      error: "",
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!role.name || !company.name) {
+      if (!role.name) {
+        setRole((prev) => ({
+          ...prev,
+          error: "Position is required!",
+        }));
+      }
+      if (!company.name) {
+        setCompany((prev) => ({
+          ...prev,
+          error: "Company name is required!",
+        }));
+      }
+      return;
+    }
+
+    reset();
+    console.log(role.name, company.name, status);
   };
 
   useEffect(() => {
@@ -31,7 +72,7 @@ export const ApplicationForm = () => {
   }, []);
 
   return (
-    <form className={styles.form} action="">
+    <form className={styles.form} onSubmit={handleSubmit}>
       {showContent && (
         <>
           <div className={styles.closeFormBtn}>
@@ -48,17 +89,19 @@ export const ApplicationForm = () => {
             id="role-input"
             type="text"
             name="role-input"
-            value={role}
+            value={role.name}
             onChange={handleRole}
             placeholder="Position"
+            error={role.error}
           />
           <CustomInput
             id="company-input"
             type="text"
             name="company-input"
-            value={company}
+            value={company.name}
             onChange={handleCompany}
             placeholder="Company name"
+            error={company.error}
           />
           <select
             className={styles.select}
