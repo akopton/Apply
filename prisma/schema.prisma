@@ -51,3 +51,26 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+enum Status {
+    sent
+    opened
+    answered
+    rejected
+}
+
+model SearchPlatform {
+    id          String        @id @default(cuid())
+    name        String
+    url         String
+    Application Application[]
+}
+
+model Application {
+    id               String         @id @default(cuid())
+    role             String
+    company          String
+    platform         SearchPlatform @relation(fields: [searchPlatformId], references: [id])
+    status           Status
+    searchPlatformId String
+}
