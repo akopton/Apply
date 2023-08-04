@@ -5,6 +5,7 @@ import { ApplicationFormContext } from "@/context/FormContext";
 import { AiOutlineClose, AiOutlineCheckCircle } from "react-icons/ai";
 import styles from "./form.module.css";
 import CustomInput from "../CustomInput/CustomInput";
+import CustomDropdown from "../CustomDropdown/CustomDropdown";
 
 export const ApplicationForm = () => {
   const [showContent, setShowContent] = useState(false);
@@ -14,13 +15,13 @@ export const ApplicationForm = () => {
     error: "",
   });
 
-  const [status, setStatus] = useState<Status>("sent");
+  const [status, setStatus] = useState<string>("");
   const { closeForm } = useContext(ApplicationFormContext);
 
   const reset = () => {
     setRole({ name: "", error: "" });
     setCompany({ name: "", error: "" });
-    setStatus("sent");
+    setStatus("");
   };
 
   const handleRole = (e: React.FormEvent<HTMLInputElement>) => {
@@ -39,6 +40,10 @@ export const ApplicationForm = () => {
       name: companyName,
       error: "",
     }));
+  };
+
+  const handleStatus = (el: string) => {
+    setStatus(el);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -103,6 +108,14 @@ export const ApplicationForm = () => {
             placeholder="Company name"
             error={company.error}
           />
+          <div className={styles.dropdownWrapper}>
+            <CustomDropdown
+              data={["sent", "opened", "answered", "rejected"]}
+              onSelect={handleStatus}
+              selectedItem={status}
+              placeholder="Choose status..."
+            />
+          </div>
           <select
             className={styles.select}
             value={status}
