@@ -1,16 +1,14 @@
 import { useSession } from "next-auth/react";
 import { ApplicationForm } from "../ApplicationForm/ApplicationForm";
 import styles from "./layout.module.css";
-import { useState } from "react";
+import { useContext } from "react";
 import { CustomBtn } from "../CustomBtn/CustomBtn";
+import { ApplicationFormContext } from "@/context/FormContext";
+
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [isFormOpened, setIsFormOpened] = useState(false);
+  const { openForm, isFormOpened } = useContext(ApplicationFormContext);
 
   const session = useSession();
-
-  const openForm = () => {
-    setIsFormOpened(true);
-  };
 
   if (!session.data?.user) return children;
 

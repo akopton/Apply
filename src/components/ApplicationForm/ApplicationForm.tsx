@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Status } from "@prisma/client";
 import styles from "./form.module.css";
+import { CustomBtn } from "../CustomBtn/CustomBtn";
+import { ApplicationFormContext } from "@/context/FormContext";
 
 export const ApplicationForm = () => {
   const [role, setRole] = useState("");
   const [company, setCompany] = useState("");
   const [status, setStatus] = useState<Status>("sent");
+  const { closeForm } = useContext(ApplicationFormContext);
 
   return (
     <form className={styles.form} action="">
+      <CustomBtn type="button" text="Close form" onClick={closeForm} />
       <input
         className={styles.input}
         type="text"

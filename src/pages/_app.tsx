@@ -5,6 +5,7 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Layout } from "@/components/Layout/Layout";
+import { ApplicationFormProvider } from "@/context/FormContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,9 +14,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <ThemeProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ApplicationFormProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApplicationFormProvider>
       </ThemeProvider>
     </SessionProvider>
   );
