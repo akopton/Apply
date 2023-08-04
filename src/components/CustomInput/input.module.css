@@ -1,0 +1,86 @@
+
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  position: relative;
+}
+.inputFieldWrapper {
+  position: relative;
+}
+.inputFieldWrapper .input {
+  font-size: 20px;
+  padding: 12px 10px;
+  border: 2px solid var(--secondary-bg);
+  border-radius: 8px;
+}
+.inputFieldWrapper .input.error {
+  border-color: var(--primary-color);
+}
+.inputFieldWrapper .input.success {
+  border-color: var(--secondary-color);
+}
+.inputFieldWrapper .input:focus {
+  border-color: var(--primary-font);
+}
+.inputFieldWrapper .input:not(:-moz-placeholder-shown) ~ .floatingPlaceholder {
+  transform: translateY(-12px) translateX(-2px);
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+.inputFieldWrapper .input:focus ~ .floatingPlaceholder, .inputFieldWrapper .input:not(:placeholder-shown) ~ .floatingPlaceholder {
+  transform: translateY(-12px) translateX(-2px);
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+.inputFieldWrapper .input:-moz-placeholder-shown ~ label {
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.inputFieldWrapper .input:placeholder-shown ~ label {
+  transition: all 0.3s ease;
+}
+.inputFieldWrapper .input:focus::-moz-placeholder {
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.inputFieldWrapper .input:focus::placeholder {
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.inputFieldWrapper .input::-moz-placeholder {
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.inputFieldWrapper .input::placeholder {
+  transition: all 0.3s ease;
+}
+.inputFieldWrapper .floatingPlaceholder {
+  position: absolute;
+  left: 10px;
+  padding: 0 2px;
+  background-color: var(--primary-bg);
+  color: var(--primary-font);
+  font-size: 16px;
+  opacity: 0;
+  order: 1;
+}
+.inputFieldWrapper .inputStatusIcon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.inputFieldError {
+  color: red;
+  font-size: 18px;
+}
+.inputField .errorLine {
+  margin: 0;
+  padding: 0;
+  height: 24px;
+  line-height: 24px;
+}
