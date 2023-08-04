@@ -6,12 +6,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background: var(--secondary-bg);
-}
-
-.input {
-    border: 1px solid red;
-    background-color: var(--primary-bg);
+    background: var(--primary-bg);
 }
 
 .select {
@@ -19,7 +14,7 @@
 }
 
 .addBtn {
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--secondary-bg);
     border-radius: var(--btn-border-radius);
     padding: var(--btn-padding);
     font-size: var(--primary-font-size);
