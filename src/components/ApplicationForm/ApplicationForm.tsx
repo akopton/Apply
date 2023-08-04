@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Status } from "@prisma/client";
-import styles from "./form.module.css";
 import { CustomBtn } from "../CustomBtn/CustomBtn";
 import { ApplicationFormContext } from "@/context/FormContext";
 import { AiOutlineClose } from "react-icons/ai";
+import styles from "./form.module.css";
+import CustomInput from "../CustomInput/CustomInput";
+import { set } from "zod";
 
 export const ApplicationForm = () => {
   const [showContent, setShowContent] = useState(false);
@@ -11,6 +13,14 @@ export const ApplicationForm = () => {
   const [company, setCompany] = useState("");
   const [status, setStatus] = useState<Status>("sent");
   const { closeForm } = useContext(ApplicationFormContext);
+
+  const handleRole = (e: React.FormEvent<HTMLInputElement>) => {
+    setRole(e.currentTarget.value);
+  };
+
+  const handleCompany = (e: React.FormEvent<HTMLInputElement>) => {
+    setCompany(e.currentTarget.value);
+  };
 
   useEffect(() => {
     const unsub = () => setTimeout(() => setShowContent(true), 300);
@@ -31,17 +41,21 @@ export const ApplicationForm = () => {
               onClick={closeForm}
             />
           </div>
-          <input
-            className={styles.input}
+          <CustomInput
+            id="role-input"
             type="text"
+            name="role-input"
             value={role}
-            onChange={(e) => setRole(e.target.value)}
+            onChange={handleRole}
+            placeholder="Position"
           />
-          <input
-            className={styles.input}
+          <CustomInput
+            id="company-input"
             type="text"
+            name="company-input"
             value={company}
-            onChange={(e) => setCompany(e.target.value)}
+            onChange={handleCompany}
+            placeholder="Company name"
           />
           <select
             className={styles.select}
