@@ -9,13 +9,19 @@
     background: var(--primary-bg);
   }
   .dropdownWrapper .dropdownSelectedItem {
-    padding: 10px 15px;
-    min-width: 180px;
-    font-size: 18px;
+    padding: 5px 10px;
+    min-width: 120px;
+    white-space: nowrap;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+  }
+
+  .dropdownSelectedItem input {
+    width: 100%;
+    min-width: 130px;
   }
   .dropdownWrapper .dropdownSelectedItem .icon.opened {
     transform: rotate(180deg);
@@ -27,11 +33,13 @@
     padding: 10px 10px;
     gap: 10px;
     padding-top: 0;
+    z-index: 20;
   }
   .dropdownWrapper .dropdownList .item {
     padding: 5px 5px;
     position: relative;
     cursor: pointer;
+    z-index: 10;
   }
   .dropdownWrapper .dropdownList .item.selected {
     color: red;
