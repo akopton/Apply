@@ -1,22 +1,18 @@
-import { MdAdd } from "react-icons/md";
-import { CustomBtn } from "../CustomBtn/CustomBtn";
-import { useContext, useState } from "react";
-import { ApplicationFormContext } from "@/context/FormContext";
+import { useState } from "react";
 import styles from "./nav.module.css";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const { openForm } = useContext(ApplicationFormContext);
-
   const handleClick = () => setIsMenuOpened((prev) => !prev);
 
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>AIT</div>
       <div className={styles.navBtns}>
-        <div className={styles.openFormBtn}>
-          <CustomBtn type="button" text="Add application" onClick={openForm} />
-        </div>
+        <Link className={styles.openFormBtn} href={"/new-application"}>
+          Add application
+        </Link>
         <div className={styles.hamburger} onClick={handleClick}>
           <div
             className={styles.piece}
