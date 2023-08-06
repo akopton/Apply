@@ -75,7 +75,7 @@ model SearchPlatform {
 
 model Application {
     id               String         @id @default(cuid())
-    role             String
+    position         String
     company          String
     searchPlatformId String
     platform         SearchPlatform @relation(fields: [searchPlatformId], references: [id])
