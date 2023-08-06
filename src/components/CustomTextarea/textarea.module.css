@@ -1,0 +1,11 @@
+.textField {
+    height: 200px;
+    padding: 10px;
+    max-width: 100%;
+    border: 2px solid var(--secondary-bg);
+    border-radius: 16px;
+}
+
+.textField:focus {
+    border-color: var(--secondary-color)
+}
