@@ -62,13 +62,12 @@ enum status {
 
 model Status {
     id          String        @id @default(cuid())
-    name        status
+    name        status        @unique
     Application Application[]
 }
 
 model SearchPlatform {
     id          String        @id @default(cuid())
-    name        String
     url         String
     Application Application[]
 }
