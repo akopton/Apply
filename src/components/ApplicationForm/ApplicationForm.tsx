@@ -1,14 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { Status } from "@prisma/client";
-import { CustomBtn } from "../CustomBtn/CustomBtn";
-import { ApplicationFormContext } from "@/context/FormContext";
-import { AiOutlineClose, AiOutlineCheckCircle } from "react-icons/ai";
-import styles from "./form.module.css";
+import { useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import CustomDropdown from "../CustomDropdown/CustomDropdown";
+import { CustomTextarea } from "../CustomTextarea/CustomTextarea";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import styles from "./form.module.css";
 
 export const ApplicationForm = () => {
-  const [showContent, setShowContent] = useState(false);
   const [role, setRole] = useState({ name: "", error: "" });
   const [company, setCompany] = useState({
     name: "",
@@ -16,12 +13,27 @@ export const ApplicationForm = () => {
   });
 
   const [status, setStatus] = useState<string>("");
-  const { closeForm } = useContext(ApplicationFormContext);
+  const statusList = ["sent", "opened", "answered", "rejected"];
+
+  const [platform, setPlatform] = useState<string>("");
+  const platformList = ["justjoin.it", "nofluffjobs.com", "pracuj.pl"];
+
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [comment, setComment] = useState("");
 
   const reset = () => {
     setRole({ name: "", error: "" });
     setCompany({ name: "", error: "" });
     setStatus("");
+    setComment("");
+  };
+
+  const handleClick = () => {
+    setShowCommentInput(true);
+  };
+
+  const handleComment = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setComment(e.currentTarget.value);
   };
 
   const handleRole = (e: React.FormEvent<HTMLInputElement>) => {
@@ -46,6 +58,10 @@ export const ApplicationForm = () => {
     setStatus(el);
   };
 
+  const handlePlatform = (el: string) => {
+    setPlatform(el);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!role.name || !company.name) {
@@ -65,81 +81,80 @@ export const ApplicationForm = () => {
     }
 
     reset();
-    console.log(role.name, company.name, status);
+    console.log(role.name, company.name, status, comment);
+    // ADD NEW APPLICATION
   };
-
-  useEffect(() => {
-    const unsub = () => setTimeout(() => setShowContent(true), 300);
-
-    return () => {
-      unsub();
-    };
-  }, []);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      {showContent && (
-        <>
-          <div className={styles.closeFormBtn}>
-            <CustomBtn
-              type="button"
-              icon={<AiOutlineClose />}
-              onClick={closeForm}
-              additionalStyles={{
-                border: "none",
-              }}
-            />
-          </div>
-          <CustomInput
-            id="role-input"
-            type="text"
-            name="role-input"
-            value={role.name}
-            onChange={handleRole}
-            placeholder="Position"
-            error={role.error}
+      <CustomInput
+        id="role-input"
+        type="text"
+        name="role-input"
+        value={role.name}
+        onChange={handleRole}
+        placeholder="Position"
+        error={role.error}
+      />
+      <CustomInput
+        id="company-input"
+        type="text"
+        name="company-input"
+        value={company.name}
+        onChange={handleCompany}
+        placeholder="Company name"
+        error={company.error}
+      />
+      <div className="flex w-full">
+        <div className={styles.dropdownWrapper}>
+          <CustomDropdown
+            data={statusList}
+            onSelect={handleStatus}
+            selectedItem={status}
+            placeholder="Choose status..."
           />
-          <CustomInput
-            id="company-input"
-            type="text"
-            name="company-input"
-            value={company.name}
-            onChange={handleCompany}
-            placeholder="Company name"
-            error={company.error}
+        </div>
+        <div className={styles.dropdownWrapper}>
+          <CustomDropdown
+            data={platformList}
+            onSelect={handlePlatform}
+            selectedItem={platform}
+            placeholder="Choose platform..."
+            searchInput
           />
-          <div className={styles.dropdownWrapper}>
-            <CustomDropdown
-              data={["sent", "opened", "answered", "rejected"]}
-              onSelect={handleStatus}
-              selectedItem={status}
-              placeholder="Choose status..."
-            />
-          </div>
-          <select
-            className={styles.select}
-            value={status}
-            onChange={(e) => setStatus(e.target.value as Status)}
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => setShowCommentInput(true)}
+        className={styles.addBtn}
+      >
+        Add comment
+      </button>
+      <div
+        className={styles.commentInputWrapper}
+        style={{ bottom: showCommentInput ? "0" : "-100%" }}
+        onBlur={() => setShowCommentInput(false)}
+      >
+        <div className={styles.commentInputHeader}>
+          <span>Add your comment</span>
+          <button
+            type="button"
+            className={styles.commentInputHeaderIcon}
+            onClick={() => setShowCommentInput(false)}
           >
-            <option className={styles.option} value="sent">
-              sent
-            </option>
-            <option className={styles.option} value="opened">
-              opened
-            </option>
-            <option className={styles.option} value="answered">
-              answered
-            </option>
-            <option className={styles.option} value="rejected">
-              rejected
-            </option>
-          </select>
-
-          <button className={styles.addBtn} type="submit">
-            Save
+            <AiOutlineCheckCircle />
           </button>
-        </>
-      )}
+        </div>
+        <CustomTextarea
+          value={comment}
+          placeholder="Type your comment..."
+          onChange={handleComment}
+        />
+      </div>
+      <button className={styles.addBtn} type="submit">
+        Save
+      </button>
     </form>
   );
 };
