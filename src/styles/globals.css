@@ -28,6 +28,7 @@ input,
 ul,
 ol,
 li,
-button {
+button,
+textarea {
     all: unset;
 }

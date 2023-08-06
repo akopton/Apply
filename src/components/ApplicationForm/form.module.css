@@ -1,10 +1,10 @@
 .form {
+    padding: 40px 0;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 20px;
     background: var(--primary-bg);
 }
@@ -33,4 +33,30 @@
     position: relative;
     width: 100%;
     height: 50px;
+}
+
+.commentInputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s ease;
+    color: var(--primary-bg);
+    background-color: var(--primary-font);
+    border-radius: 16px 16px 0 0;
+}
+
+.commentInputHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+}
+
+.commentInputHeaderIcon {
+    font-size: 34px;
 }
