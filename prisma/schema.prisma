@@ -61,27 +61,39 @@ enum status {
 }
 
 model Status {
-    id          String        @id @default(cuid())
-    name        status        @unique
-    Application Application[]
+    id                       String                    @id @default(cuid())
+    name                     status                    @unique
+    applications             Application[]
+    applicationStatusUpdates ApplicationStatusUpdate[]
 }
 
 model SearchPlatform {
-    id          String        @id @default(cuid())
-    url         String
-    Application Application[]
+    id           String        @id @default(cuid())
+    url          String        @unique
+    applications Application[]
 }
 
 model Application {
-    id               String         @id @default(cuid())
+    id               String                    @id @default(cuid())
     position         String
     company          String
     searchPlatformId String
-    platform         SearchPlatform @relation(fields: [searchPlatformId], references: [id])
-    statusId         String
-    status           Status         @relation(fields: [statusId], references: [id])
+    platform         SearchPlatform            @relation(fields: [searchPlatformId], references: [id])
+    statusId         status
+    status           Status                    @relation(fields: [statusId], references: [name])
     hasFeedback      Boolean?
     feedbackMsg      String?
-    owner            User           @relation(fields: [ownerId], references: [id])
+    owner            User                      @relation(fields: [ownerId], references: [id])
     ownerId          String
+    addedAt          DateTime                  @default(now())
+    statusUpdates    ApplicationStatusUpdate[]
+}
+
+model ApplicationStatusUpdate {
+    id            String      @id @default(cuid())
+    status        Status      @relation(fields: [statusId], references: [id])
+    updatedAt     DateTime
+    application   Application @relation(fields: [applicationId], references: [id])
+    applicationId String
+    statusId      String
 }
