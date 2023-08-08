@@ -12,11 +12,11 @@ export default function ApplicationsPage() {
       <Head>
         <title>Applications</title>
       </Head>
-      <main className="relative flex h-full flex-col items-start overflow-hidden">
-        <div className="h-full w-full overflow-scroll px-10 py-2">
+      <main className="relative h-full">
+        <div className="h-[90%] w-full">
           <CustomList data={filteredData} />
         </div>
-        <div className="flex w-full items-center justify-center bg-primaryBg p-2">
+        <div className="sticky bottom-0 flex w-full items-center justify-center bg-primaryBg p-2">
           <Filter />
         </div>
       </main>
