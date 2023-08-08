@@ -15,6 +15,6 @@ export const CustomTextarea = (props: TextareaProps) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-    ></textarea>
+    />
   );
 };
