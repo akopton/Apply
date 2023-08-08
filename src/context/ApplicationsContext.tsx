@@ -60,13 +60,14 @@ export const ApplicationsProvider = ({
           return position.includes(value) || company.includes(value);
         })
         .filter((el) => {
+          if (!filters?.days) return el;
           const currentDate = new Date();
           const addedAt = new Date(el.addedAt);
-          const days = parseInt(filters?.days!);
+          const days = parseInt(filters?.days);
           const daysAgo = new Date(
             currentDate.getTime() - days * 24 * 60 * 60 * 1000
           );
-          return filters?.days && filters.days !== "" ? addedAt < daysAgo : el;
+          return filters?.days !== "" ? addedAt < daysAgo : el;
         })
         .filter((el) => {
           return filters?.statusId && filters?.statusId !== ""
