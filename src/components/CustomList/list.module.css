@@ -1,0 +1,13 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listItem {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--secondary-color);
+    border-radius: var(--btn-border-radius);
+}
