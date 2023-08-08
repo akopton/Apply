@@ -12,7 +12,16 @@ type ItemProps = Application;
 const ListItem = (props: ItemProps) => {
   return (
     <li>
-      <Link href={`/applications/${props.id}`} className={styles.listItem}>
+      <Link
+        href={{
+          pathname: "/applications/[id]",
+          query: {
+            id: props.id,
+            slug: props.position,
+          },
+        }}
+        className={styles.listItem}
+      >
         <span>{props.position}</span>
         <span>{props.company}</span>
         <span>{getFullDateString(props.addedAt)}</span>
