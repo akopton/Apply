@@ -7,7 +7,7 @@ export default function NewApplicationPage() {
       <Head>
         <title>New application</title>
       </Head>
-      <main className="h-screen max-h-screen">
+      <main className="h-screen">
         <ApplicationForm />
       </main>
     </>

@@ -12,6 +12,8 @@
     --btn-border-radius: 16px;
     --btn-padding: 12px 24px;
     --primary-font-size: 20px;
+
+    --primary-font-transparent: rgb(173, 173, 173);
 }
 
 .light {
@@ -32,3 +34,8 @@ button,
 textarea {
     all: unset;
 }
+
+g, path {
+    outline: none;
+}
+
