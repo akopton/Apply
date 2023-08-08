@@ -26,6 +26,11 @@
     background-color: var(--primary-font);
 }
 
+.theme {
+    max-height: 100vh;
+    overflow-y: hidden;
+}
+
 input,
 ul,
 ol,

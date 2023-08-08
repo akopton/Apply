@@ -1,19 +1,24 @@
 .filterBtn {
-    font-size: 16px;
+    font-size: 18px;
     border: 2px solid var(--primary-color);
     padding: 6px 12px;
     border-radius: var(--btn-border-radius);
+    white-space: nowrap;
 }
 
 .filtersModal {
     position: fixed;
     left: 0;
-    height: 200px;
-    width: 100%;
     background-color: var(--primary-font);
     color: var(--primary-bg);
     transition: .3s ease;
     z-index: 5;
+    padding: 10px;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .blur {
@@ -37,4 +42,21 @@
     border: 2px solid var(--primary-color);
     padding: 6px 6px;
     border-radius: var(--btn-border-radius);
+}
+
+.filtersSet {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filtersSetTitle {
+    font-size: 20px;
+}
+
+.filtersSetBtns {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
 }
