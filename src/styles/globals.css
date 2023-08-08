@@ -17,7 +17,6 @@
 }
 
 body {
-    overflow: hidden;
 }
 
 .light {
@@ -31,8 +30,9 @@ body {
 }
 
 .theme {
+    overflow: auto;
     height: 100vh;
-    overflow-y: hidden;
+    position: relative;
 }
 
 input,

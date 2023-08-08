@@ -12,7 +12,7 @@ export default function ApplicationsPage() {
       <Head>
         <title>Applications</title>
       </Head>
-      <main className="relative h-full overflow-auto">
+      <main className="relative h-full">
         <Filter />
         <CustomList data={filteredData} />
       </main>

@@ -5,6 +5,8 @@
     justify-content: space-between;
     padding: 20px;
     background: var(--primary-bg);
+    position: sticky;
+    top: 0;
 }
 
 .logo {

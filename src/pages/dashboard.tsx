@@ -38,7 +38,7 @@ export default function DashboardPage() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <main className="flex flex-col items-center gap-10 overflow-auto bg-primaryBg py-5">
+      <main className="flex flex-col items-center gap-10 bg-primaryBg py-5">
         <div className="flex w-full flex-col gap-3">
           <h2 className="text-center text-2xl">Recently added applications</h2>
           {applications.data && <CustomList data={applications.data} />}
