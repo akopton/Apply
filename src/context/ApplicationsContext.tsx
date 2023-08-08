@@ -62,7 +62,7 @@ export const ApplicationsProvider = ({
         .filter((el) => {
           const currentDate = new Date();
           const addedAt = new Date(el.addedAt);
-          const days = parseInt(filters?.days as string);
+          const days = parseInt(filters?.days!);
           const daysAgo = new Date(
             currentDate.getTime() - days * 24 * 60 * 60 * 1000
           );

@@ -49,7 +49,7 @@ export default function DashboardPage() {
             Show all applications {"->"}
           </Link>
         </div>
-        {chartData && chartData[0]?.value! > 0 && (
+        {chartData && chartData[0] && chartData[0].value > 0 && (
           <div className="flex flex-col items-center">
             <h2 className="text-center text-2xl">
               Your applications ordered by status
