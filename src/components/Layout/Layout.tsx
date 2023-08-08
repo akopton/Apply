@@ -14,7 +14,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={styles.layout}>
       <Navbar />
-      {children}
+      <div className={styles.content}>{children}</div>
       <div
         className={styles.formWrapper}
         style={
