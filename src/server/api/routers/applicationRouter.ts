@@ -9,7 +9,7 @@ export const applicationRouter = createTRPCRouter({
         position: z.string(),
         company: z.string(),
         status: z.string(),
-        platform: z.object({ id: z.string(), url: z.string() }),
+        platform: z.string(),
         comment: z.string(),
       })
     )
@@ -22,10 +22,10 @@ export const applicationRouter = createTRPCRouter({
           platform: {
             connectOrCreate: {
               where: {
-                id: input.platform.id,
+                url: input.platform,
               },
               create: {
-                url: input.platform.url,
+                url: input.platform,
               },
             },
           },
@@ -43,4 +43,30 @@ export const applicationRouter = createTRPCRouter({
       });
       return application;
     }),
+
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const user = ctx.session.user;
+    const applications = await ctx.prisma.application.findMany({
+      where: {
+        ownerId: user.id,
+      },
+    });
+
+    return applications;
+  }),
+
+  getTop: protectedProcedure.input(z.number()).query(async ({ ctx, input }) => {
+    const user = ctx.session.user;
+    const applications = await ctx.prisma.application.findMany({
+      where: {
+        ownerId: user.id,
+      },
+      orderBy: {
+        addedAt: "desc",
+      },
+      take: input,
+    });
+
+    return applications;
+  }),
 });
