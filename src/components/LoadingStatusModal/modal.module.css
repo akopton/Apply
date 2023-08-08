@@ -8,4 +8,7 @@
     color: var(--primary-bg);
     border-radius: 20px;
     transition: .3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./modal.module.css";
 
 type ModalProps = {
@@ -8,11 +8,21 @@ type ModalProps = {
 };
 
 export const LoadingStatusModal = (props: ModalProps) => {
-  const [hideModal, setHideModal] = useState(false);
   const { isLoading, isSuccess, isError } = props;
+  const [showComponent, setShowComponent] = useState(true);
 
-  if (isSuccess) {
-    setTimeout(() => setHideModal(true), 2000);
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        setShowComponent(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccess]);
+
+  if (!showComponent) {
+    return null;
   }
 
   return (
@@ -22,7 +32,13 @@ export const LoadingStatusModal = (props: ModalProps) => {
         bottom: isLoading ? "0" : isError ? "0" : isSuccess ? "0" : "-100%",
       }}
     >
-      {isLoading ? "Loading" : isError ? "Error" : isSuccess ? "Success" : ""}
+      {isLoading
+        ? "Loading..."
+        : isError
+        ? "Error"
+        : isSuccess
+        ? "Success"
+        : ""}
     </div>
   );
 };
