@@ -69,4 +69,17 @@ export const applicationRouter = createTRPCRouter({
 
     return applications;
   }),
+
+  getSingleById: protectedProcedure
+    .input(z.string().optional())
+    .query(async ({ ctx, input }) => {
+      const user = ctx.session.user;
+      const application = await ctx.prisma.application.findUnique({
+        where: {
+          ownerId: user.id,
+          id: input,
+        },
+      });
+      return application;
+    }),
 });
