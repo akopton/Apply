@@ -1,6 +1,7 @@
 import { Application } from "@prisma/client";
 import styles from "./list.module.css";
 import { getFullDateString } from "@/utils/getFullDateString";
+import Link from "next/link";
 
 type ListProps<T> = {
   data: T[];
@@ -10,10 +11,12 @@ type ItemProps = Application;
 
 const ListItem = (props: ItemProps) => {
   return (
-    <li className={styles.listItem}>
-      <span>{props.position}</span>
-      <span>{props.company}</span>
-      <span>{getFullDateString(props.addedAt)}</span>
+    <li>
+      <Link href={`/applications/${props.id}`} className={styles.listItem}>
+        <span>{props.position}</span>
+        <span>{props.company}</span>
+        <span>{getFullDateString(props.addedAt)}</span>
+      </Link>
     </li>
   );
 };
