@@ -1,0 +1,11 @@
+.modal {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 200px;
+    width: 80%;
+    background-color: var(--primary-font);
+    color: var(--primary-bg);
+    border-radius: 20px;
+    transition: .3s ease;
+}
