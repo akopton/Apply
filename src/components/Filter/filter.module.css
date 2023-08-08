@@ -1,7 +1,7 @@
 .filterBtn {
     font-size: 16px;
     border: 2px solid var(--primary-color);
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: var(--btn-border-radius);
 }
 
@@ -22,4 +22,19 @@
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+.buttonsWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.searchInput {
+    max-width: 50%;
+    border: 2px solid var(--primary-color);
+    padding: 6px 6px;
+    border-radius: var(--btn-border-radius);
 }
