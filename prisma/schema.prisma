@@ -79,8 +79,8 @@ model Application {
     company          String
     searchPlatformId String
     platform         SearchPlatform            @relation(fields: [searchPlatformId], references: [id])
-    statusId         status
-    status           Status                    @relation(fields: [statusId], references: [name])
+    statusId         String
+    status           Status                    @relation(fields: [statusId], references: [id])
     hasFeedback      Boolean?
     feedbackMsg      String?
     owner            User                      @relation(fields: [ownerId], references: [id])
