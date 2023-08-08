@@ -31,12 +31,14 @@
 
 .buttonsWrapper {
     width: 100%;
+    padding: 10px;
+    background: var(--primary-bg);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     position: sticky;
-    bottom: 0;
+    top: 0;
 }
 
 .searchInput {

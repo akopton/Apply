@@ -4,10 +4,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    position: sticky;
-    top: 0;
     background: var(--primary-bg);
-    z-index: 2;
 }
 
 .logo {

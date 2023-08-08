@@ -2,9 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow: auto;
-    height: 100%;
     padding: 0 30px;
+    padding-bottom: 30px;
 }
 
 .listItem {

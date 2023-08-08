@@ -12,13 +12,9 @@ export default function ApplicationsPage() {
       <Head>
         <title>Applications</title>
       </Head>
-      <main className="relative h-full">
-        <div className="sticky top-0 flex w-full items-center justify-center bg-primaryBg p-2">
-          <Filter />
-        </div>
-        <div className="h-[90%] w-full px-4">
-          <CustomList data={filteredData} />
-        </div>
+      <main className="relative h-full overflow-auto">
+        <Filter />
+        <CustomList data={filteredData} />
       </main>
     </>
   );
