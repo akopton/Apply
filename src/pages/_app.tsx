@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Layout } from "@/components/Layout/Layout";
 import { ApplicationFormProvider } from "@/context/FormContext";
+import { ApplicationsProvider } from "@/context/ApplicationsContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,9 +16,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ThemeProvider>
         <ApplicationFormProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ApplicationsProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ApplicationsProvider>
         </ApplicationFormProvider>
       </ThemeProvider>
     </SessionProvider>
