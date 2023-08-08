@@ -16,6 +16,10 @@
     --primary-font-transparent: rgb(173, 173, 173);
 }
 
+body {
+    overflow: hidden;
+}
+
 .light {
     color: var(--primary-font);
     background: var(--primary-bg);
