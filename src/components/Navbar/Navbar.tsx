@@ -8,7 +8,9 @@ export const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      <div className={styles.logo}>AIT</div>
+      <Link href={"/dashboard"} className={styles.logo}>
+        AIT
+      </Link>
       <div className={styles.navBtns}>
         <Link className={styles.openFormBtn} href={"/new-application"}>
           Add application
