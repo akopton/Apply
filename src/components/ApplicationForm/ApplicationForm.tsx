@@ -10,12 +10,8 @@ import { LoadingStatusModal } from "../LoadingStatusModal/LoadingStatusModal";
 export const ApplicationForm = () => {
   const statusList = api.status.getAll.useQuery();
   const platformList = api.searchPlatform.getAll.useQuery();
-  const {
-    mutateAsync: addApplication,
-    isLoading,
-    isError,
-    isSuccess,
-  } = api.application.add.useMutation();
+  const { mutateAsync: addApplication, isSuccess } =
+    api.application.add.useMutation();
 
   const [position, setPosition] = useState({ value: "", error: "" });
   const [company, setCompany] = useState({
@@ -195,11 +191,7 @@ export const ApplicationForm = () => {
       <button className={styles.addBtn} type="submit">
         Save
       </button>
-      <LoadingStatusModal
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
-      />
+      {isSuccess && <LoadingStatusModal />}
     </form>
   );
 };

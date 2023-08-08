@@ -1,44 +1,25 @@
 import { useEffect, useState } from "react";
 import styles from "./modal.module.css";
 
-type ModalProps = {
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-};
-
-export const LoadingStatusModal = (props: ModalProps) => {
-  const { isLoading, isSuccess, isError } = props;
-  const [showComponent, setShowComponent] = useState(true);
+export const LoadingStatusModal = () => {
+  const [showComponent, setShowComponent] = useState(false);
 
   useEffect(() => {
-    if (isSuccess) {
-      const timer = setTimeout(() => {
-        setShowComponent(false);
-      }, 3000);
+    setShowComponent(true);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isSuccess]);
-
-  if (!showComponent) {
-    return null;
-  }
+    setTimeout(() => {
+      setShowComponent(false);
+    }, 1000);
+  }, []);
 
   return (
     <div
       className={styles.modal}
       style={{
-        bottom: isLoading ? "0" : isError ? "0" : isSuccess ? "0" : "-100%",
+        bottom: showComponent ? "0" : "-100%",
       }}
     >
-      {isLoading
-        ? "Loading..."
-        : isError
-        ? "Error"
-        : isSuccess
-        ? "Success"
-        : ""}
+      Success
     </div>
   );
 };
