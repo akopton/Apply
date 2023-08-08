@@ -1,0 +1,141 @@
+.picker {
+  font-size: 20px;
+  padding: var(--btn-padding);
+  border: 2px solid var(--secondary-bg);
+  border-radius: var(--btn-border-radius);
+  min-width: 220px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 280px;
+  width: 100%;
+  background: var(--primary-font);
+  backdrop-filter: blur(4px);
+  border-radius: 16px 16px 0 0;
+  z-index: 20;
+  transition: .3s ease;
+  color: var(--primary-bg);
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.modalTop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.modalClose { 
+  font-size: 34px;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 5px 15px;
+}
+
+.listItem {
+  padding: 10px 5px;
+  border-bottom: 1px solid var(--primary-font-transparent);
+}
+
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.searchInputWrapper {
+  padding: 0 10px 5px 10px;
+}
+
+.searchInput {
+  font-size: 16px;
+  padding: 5px 10px;
+  max-width: 60%;
+  border-bottom: 1px solid var(--primary-font-transparent);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* .dropdownWrapper .dropdown {
+  border: 2px solid var(--secondary-bg);
+  border-radius: 8px;
+  max-height: 300px;
+  background: var(--primary-bg);
+  text-align: center;
+  position: relative;
+  z-index: 20;
+  }
+
+  .dropdownWrapper .dropdownSelectedItem {
+    padding: 5px 10px;
+    white-space: nowrap;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    max-width: 50%;
+  }
+
+
+  .dropdownWrapper .dropdownSelectedItem .icon.opened {
+    transform: rotate(180deg);
+  }
+  .dropdownWrapper .dropdownList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 10px;
+    gap: 10px;
+    padding-top: 0;
+  }
+  .dropdownWrapper .dropdownList .item {
+    padding: 5px 5px;
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .dropdownWrapper .dropdownList .item.selected {
+    color: red;
+  }
+  .dropdownWrapper .dropdownList .item::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    transform: translateY(-50%);
+    height: 0;
+    width: 2px;
+    background: red;
+    transition: 0.3s ease;
+  }
+  .dropdownWrapper .dropdownList .item:hover::before {
+    height: 100%;
+    transition: 0.3s ease;
+  } */
