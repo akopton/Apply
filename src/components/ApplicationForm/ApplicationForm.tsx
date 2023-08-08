@@ -1,35 +1,66 @@
 import { useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
-import CustomDropdown from "../CustomDropdown/CustomDropdown";
 import { CustomTextarea } from "../CustomTextarea/CustomTextarea";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import styles from "./form.module.css";
+import { api } from "@/utils/api";
+import { CustomPicker } from "../CustomPicker/CustomPicker";
+import { LoadingStatusModal } from "../LoadingStatusModal/LoadingStatusModal";
 
 export const ApplicationForm = () => {
-  const [role, setRole] = useState({ name: "", error: "" });
+  const statusList = api.status.getAll.useQuery();
+  const platformList = api.searchPlatform.getAll.useQuery();
+  const {
+    mutateAsync: addApplication,
+    isLoading,
+    isError,
+    isSuccess,
+  } = api.application.add.useMutation();
+
+  const [position, setPosition] = useState({ value: "", error: "" });
   const [company, setCompany] = useState({
-    name: "",
+    value: "",
     error: "",
   });
 
-  const [status, setStatus] = useState<string>("");
-  const statusList = ["sent", "opened", "answered", "rejected"];
-
-  const [platform, setPlatform] = useState<string>("");
-  const platformList = ["justjoin.it", "nofluffjobs.com", "pracuj.pl"];
-
-  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [status, setStatus] = useState({ value: "", error: "" });
+  const [platform, setPlatform] = useState({ value: "", error: "" });
   const [comment, setComment] = useState("");
 
+  const [showCommentInput, setShowCommentInput] = useState(false);
+
   const reset = () => {
-    setRole({ name: "", error: "" });
-    setCompany({ name: "", error: "" });
-    setStatus("");
+    setPosition({ value: "", error: "" });
+    setCompany({ value: "", error: "" });
+    setPlatform({ value: "", error: "" });
+    setStatus({ value: "", error: "" });
     setComment("");
   };
 
-  const handleClick = () => {
-    setShowCommentInput(true);
+  const validateForm = () => {
+    if (!position.value || !company.value || !status.value || !platform.value) {
+      if (!position.value) {
+        setPosition((prev) => ({
+          ...prev,
+          error: "Position is required!",
+        }));
+      }
+      if (!company.value) {
+        setCompany((prev) => ({
+          ...prev,
+          error: "Company name is required!",
+        }));
+      }
+      if (!status.value) {
+        setStatus((prev) => ({ ...prev, error: "Status is required!" }));
+      }
+      if (!platform.value) {
+        setPlatform((prev) => ({ ...prev, error: "Platform is required!" }));
+      }
+      return false;
+    }
+
+    return true;
   };
 
   const handleComment = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -38,9 +69,9 @@ export const ApplicationForm = () => {
 
   const handleRole = (e: React.FormEvent<HTMLInputElement>) => {
     const roleName = e.currentTarget.value;
-    setRole((prev) => ({
+    setPosition((prev) => ({
       ...prev,
-      name: roleName,
+      value: roleName,
       error: "",
     }));
   };
@@ -49,40 +80,36 @@ export const ApplicationForm = () => {
     const companyName = e.currentTarget.value;
     setCompany((prev) => ({
       ...prev,
-      name: companyName,
+      value: companyName,
       error: "",
     }));
   };
 
   const handleStatus = (el: string) => {
-    setStatus(el);
+    setStatus((prev) => ({ value: el, error: "" }));
   };
 
   const handlePlatform = (el: string) => {
-    setPlatform(el);
+    setPlatform({ value: el, error: "" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!role.name || !company.name) {
-      if (!role.name) {
-        setRole((prev) => ({
-          ...prev,
-          error: "Position is required!",
-        }));
-      }
-      if (!company.name) {
-        setCompany((prev) => ({
-          ...prev,
-          error: "Company name is required!",
-        }));
-      }
-      return;
+    if (!validateForm()) return;
+
+    try {
+      await addApplication({
+        position: position.value,
+        company: company.value,
+        status: status.value,
+        platform: platform.value,
+        comment,
+      });
+    } catch (e) {
+      console.error(e);
     }
 
     reset();
-    console.log(role.name, company.name, status, comment);
-    // ADD NEW APPLICATION
   };
 
   return (
@@ -91,38 +118,45 @@ export const ApplicationForm = () => {
         id="role-input"
         type="text"
         name="role-input"
-        value={role.name}
+        value={position.value}
         onChange={handleRole}
-        placeholder="Position"
-        error={role.error}
+        placeholder="*Position"
+        error={position.error}
       />
       <CustomInput
         id="company-input"
         type="text"
         name="company-input"
-        value={company.name}
+        value={company.value}
         onChange={handleCompany}
-        placeholder="Company name"
+        placeholder="*Company name"
         error={company.error}
       />
-      <div className="flex w-full">
-        <div className={styles.dropdownWrapper}>
-          <CustomDropdown
-            data={statusList}
-            onSelect={handleStatus}
-            selectedItem={status}
-            placeholder="Choose status..."
-          />
-        </div>
-        <div className={styles.dropdownWrapper}>
-          <CustomDropdown
-            data={platformList}
-            onSelect={handlePlatform}
-            selectedItem={platform}
-            placeholder="Choose platform..."
-            searchInput
-          />
-        </div>
+      <div className="relative h-20">
+        <CustomPicker
+          data={statusList.data ? statusList.data : []}
+          placeholder="*Choose status..."
+          onSelect={handleStatus}
+          selectedItem={status.value}
+          additionalStyles={
+            status.error ? { borderColor: "var(--primary-color)" } : {}
+          }
+        />
+        <span className={styles.dropdownError}>{status.error}</span>
+      </div>
+      <div className="relative h-20">
+        <CustomPicker
+          data={platformList.data ? platformList.data : []}
+          placeholder="*Choose platform..."
+          onSelect={handlePlatform}
+          selectedItem={platform.value}
+          searchProperty="url"
+          searchInput
+          additionalStyles={
+            status.error ? { borderColor: "var(--primary-color)" } : {}
+          }
+        />
+        <span className={styles.dropdownError}>{platform.error}</span>
       </div>
       <button
         type="button"
@@ -134,7 +168,6 @@ export const ApplicationForm = () => {
       <div
         className={styles.commentInputWrapper}
         style={{ bottom: showCommentInput ? "0" : "-100%" }}
-        onBlur={() => setShowCommentInput(false)}
       >
         <div className={styles.commentInputHeader}>
           <span>Add your comment</span>
@@ -152,9 +185,20 @@ export const ApplicationForm = () => {
           onChange={handleComment}
         />
       </div>
+      {showCommentInput && (
+        <div
+          className={styles.commentBlur}
+          onClick={() => setShowCommentInput(false)}
+        />
+      )}
       <button className={styles.addBtn} type="submit">
         Save
       </button>
+      <LoadingStatusModal
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        isError={isError}
+      />
     </form>
   );
 };
