@@ -1,6 +1,5 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import styles from "./btn.module.css";
-import { useRouter } from "next/router";
 
 type BtnProps = {
   provider?: string;

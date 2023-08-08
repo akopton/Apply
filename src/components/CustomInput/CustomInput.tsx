@@ -37,10 +37,10 @@ export const Input = (props: InputProps) => {
           id={id}
           className={
             error
-              ? `${styles.input as string} ${styles.error as string}`
+              ? `${styles.input!} ${styles.error!}`
               : success
-              ? `${styles.input as string} ${styles.success as string}`
-              : `${styles.input as string}`
+              ? `${styles.input!} ${styles.success!}`
+              : `${styles.input!}`
           }
           type={type}
           name={name}
@@ -53,30 +53,18 @@ export const Input = (props: InputProps) => {
           {placeholder}
         </label>
         {success && (
-          <div
-            className={`${styles.successIcon as string} ${
-              styles.inputStatusIcon as string
-            }`}
-          >
+          <div className={`${styles.successIcon!} ${styles.inputStatusIcon!}`}>
             {successIcon}
           </div>
         )}
         {error && (
-          <div
-            className={`${styles.errorIcon as string} ${
-              styles.inputStatusIcon as string
-            }`}
-          >
+          <div className={`${styles.errorIcon!} ${styles.inputStatusIcon!}`}>
             {errorIcon}
           </div>
         )}
       </div>
       {error ? (
-        <span
-          className={`${styles.inputFieldError as string} ${
-            styles.errorLine as string
-          }`}
-        >
+        <span className={`${styles.inputFieldError!} ${styles.errorLine!}`}>
           {error}
         </span>
       ) : (

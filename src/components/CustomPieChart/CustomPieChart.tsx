@@ -1,6 +1,10 @@
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 
-export const CustomPieChart = ({ data }: { data: any[] }) => {
+export const CustomPieChart = ({
+  data,
+}: {
+  data: { label: string; value: number }[];
+}) => {
   const colors = ["#FF6F59", "#71A9F7", "#6B5CA5", "#72195A", "#4C1036"];
 
   const renderColorfulLegendText = (value: string, entry: any) => {

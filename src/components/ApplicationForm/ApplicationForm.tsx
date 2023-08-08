@@ -138,6 +138,7 @@ export const ApplicationForm = () => {
           placeholder="*Choose status..."
           onSelect={handleStatus}
           selectedItem={status.value}
+          searchProperty="name"
           additionalStyles={
             status.error ? { borderColor: "var(--primary-color)" } : {}
           }

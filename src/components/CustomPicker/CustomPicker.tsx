@@ -1,15 +1,18 @@
 import { useMemo, useState } from "react";
 import styles from "./picker.module.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { SearchPlatform, Status } from "@prisma/client";
+
+type ArrayElement = { id: string; [key: string]: string };
 
 type PickerProps = {
-  data: any[];
+  data: ArrayElement[];
   onSelect: (el: string) => void;
   selectedItem: string;
   expandIcon?: React.ReactElement;
   placeholder: string;
   searchInput?: boolean;
-  searchProperty?: string;
+  searchProperty: string;
   additionalStyles?: React.CSSProperties;
 };
 
@@ -29,11 +32,7 @@ export const CustomPicker = (props: PickerProps) => {
 
   const filteredData = useMemo(() => {
     if (searchValue === "") return data;
-    if (searchProperty) {
-      return data.filter((el) => el[searchProperty].includes(searchValue));
-    } else {
-      return data.filter((el) => el.includes(searchValue));
-    }
+    return data.filter((el) => el[searchProperty]?.includes(searchValue));
   }, [searchValue, data]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -92,11 +91,9 @@ export const CustomPicker = (props: PickerProps) => {
               <li
                 key={el.id}
                 className={styles.listItem}
-                onClick={() =>
-                  handleClick(searchProperty ? el[searchProperty] : el.name)
-                }
+                onClick={() => handleClick(el[searchProperty]!)}
               >
-                {searchProperty ? el[searchProperty] : el.name}
+                {el[searchProperty]}
               </li>
             );
           })}
