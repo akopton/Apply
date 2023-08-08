@@ -1,0 +1,25 @@
+.filterBtn {
+    font-size: 16px;
+    border: 2px solid var(--primary-color);
+    padding: 6px 10px;
+    border-radius: var(--btn-border-radius);
+}
+
+.filtersModal {
+    position: fixed;
+    left: 0;
+    height: 200px;
+    width: 100%;
+    background-color: var(--primary-font);
+    color: var(--primary-bg);
+    transition: .3s ease;
+    z-index: 5;
+}
+
+.blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
