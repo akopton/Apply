@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { Layout } from "@/components/Layout/Layout";
 import { ApplicationFormProvider } from "@/context/FormContext";
 import { ApplicationsProvider } from "@/context/ApplicationsContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute/ProtectedRoute";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,9 +18,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <ThemeProvider>
         <ApplicationFormProvider>
           <ApplicationsProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <ProtectedRoute>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ProtectedRoute>
           </ApplicationsProvider>
         </ApplicationFormProvider>
       </ThemeProvider>
