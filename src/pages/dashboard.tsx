@@ -1,4 +1,5 @@
 import { AuthBtn } from "@/components/AuthBtn/AuthBtn";
+import { CustomBarChart } from "@/components/CustomBarChart/CustomBarChart";
 import { CustomList } from "@/components/CustomList/CustomList";
 import { CustomPieChart } from "@/components/CustomPieChart/CustomPieChart";
 import { api } from "@/utils/api";
@@ -13,6 +14,18 @@ export default function DashboardPage() {
   const { data: applicationsCountForStatus } =
     api.status.getApplicationsForSingleStatus.useQuery();
 
+  const { data: applicationsCountForPlatform } =
+    api.searchPlatform.getApplicationsForSinglePlatform.useQuery();
+
+  const chartDataPlatforms = applicationsCountForPlatform
+    ?.map((el) => {
+      return {
+        label: el.url,
+        value: el._count.applications,
+      };
+    })
+    .filter((el) => el.value > 0);
+
   const chartData = applicationsCountForStatus
     ?.map((el) => {
       return {
@@ -22,12 +35,16 @@ export default function DashboardPage() {
     })
     .filter((el) => el.value > 0);
 
-  const allApplicationsCount = applicationsCountForStatus?.reduce(
+  const allApplicationsCountPlatform = applicationsCountForPlatform?.reduce(
     (acc, curr) => {
       return acc + curr._count.applications;
     },
     0
   );
+
+  const allApplicationsCountStatus = chartData?.reduce((acc, curr) => {
+    return acc + curr.value;
+  }, 0);
 
   if (!sessionData?.user) {
     return <div>loading...</div>;
@@ -46,20 +63,23 @@ export default function DashboardPage() {
             href={"/applications"}
             className="self-center rounded-xl border-2 px-3 py-2"
           >
-            Show all applications {"->"}
+            Show all applications
           </Link>
         </div>
-        {chartData && chartData[0] && chartData[0].value > 0 && (
-          <div className="flex flex-col items-center">
-            <h2 className="text-center text-2xl">
-              Your applications ordered by status
-            </h2>
-            <span className="-mb-4">
-              All applications: {allApplicationsCount}
-            </span>
-            <CustomPieChart data={chartData} />
-          </div>
-        )}
+        <div className="flex flex-col items-center gap-4">
+          <span>Applications based on status:</span>
+          <CustomBarChart
+            data={chartData}
+            maxValue={allApplicationsCountStatus!}
+          />
+        </div>
+        <div className="flex flex-col items-center gap-4">
+          <span>Applications based on searching platform:</span>
+          <CustomBarChart
+            data={chartDataPlatforms}
+            maxValue={allApplicationsCountPlatform!}
+          />
+        </div>
       </main>
     </>
   );
