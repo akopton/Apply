@@ -7,7 +7,7 @@ export const Navbar = () => {
   const handleClick = () => setIsMenuOpened((prev) => !prev);
 
   return (
-    <div className={styles.navbar}>
+    <nav className={styles.navbar}>
       <Link href={"/dashboard"} className={styles.logo}>
         AIT
       </Link>
@@ -40,6 +40,6 @@ export const Navbar = () => {
           />
         </div>
       </div>
-    </div>
+    </nav>
   );
 };

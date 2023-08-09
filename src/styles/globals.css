@@ -16,6 +16,10 @@
     --primary-font-transparent: rgb(173, 173, 173);
 }
 
+.theme {
+    min-height: 100vh;
+}
+
 .light {
     color: var(--primary-font);
     background: var(--primary-bg);
