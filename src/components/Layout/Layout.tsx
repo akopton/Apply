@@ -8,9 +8,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   if (!session.data?.user) return children;
 
   return (
-    <div className={styles.layout}>
+    <>
       <Navbar />
       {children}
-    </div>
+    </>
   );
 };

@@ -12,7 +12,7 @@ export default function ApplicationsPage() {
       <Head>
         <title>Applications</title>
       </Head>
-      <main className="">
+      <main>
         <Filter />
         <CustomList data={filteredData} />
       </main>

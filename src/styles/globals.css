@@ -16,9 +16,6 @@
     --primary-font-transparent: rgb(173, 173, 173);
 }
 
-body {
-}
-
 .light {
     color: var(--primary-font);
     background: var(--primary-bg);
@@ -27,12 +24,6 @@ body {
 .dark {
     color: var(--primary-bg);
     background-color: var(--primary-font);
-}
-
-.theme {
-    overflow: auto;
-    height: 100vh;
-    position: relative;
 }
 
 input,
