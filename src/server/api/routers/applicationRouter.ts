@@ -50,6 +50,9 @@ export const applicationRouter = createTRPCRouter({
       where: {
         ownerId: user.id,
       },
+      orderBy: {
+        addedAt: "desc",
+      },
     });
 
     return applications;
