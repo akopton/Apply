@@ -1,4 +1,11 @@
-import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 
 export const CustomPieChart = ({
   data,
@@ -51,26 +58,28 @@ export const CustomPieChart = ({
   };
 
   return (
-    <PieChart height={300} width={300}>
-      <Pie
-        dataKey="value"
-        nameKey="label"
-        data={data}
-        innerRadius={0}
-        outerRadius={100}
-        label={renderCustomizedLabel}
-        labelLine={false}
-      >
-        {data.map((el, idx) => (
-          <Cell key={`cell-${idx}`} fill={colors[idx]} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend
-        formatter={renderColorfulLegendText}
-        iconSize={20}
-        iconType="rect"
-      />
-    </PieChart>
+    <ResponsiveContainer height={300} width={300} className={"z-1"}>
+      <PieChart>
+        <Pie
+          dataKey="value"
+          nameKey="label"
+          data={data}
+          innerRadius={0}
+          outerRadius={100}
+          label={renderCustomizedLabel}
+          labelLine={false}
+        >
+          {data.map((el, idx) => (
+            <Cell key={`cell-${idx}`} fill={colors[idx]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend
+          formatter={renderColorfulLegendText}
+          iconSize={20}
+          iconType="rect"
+        />
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
