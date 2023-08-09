@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./nav.module.css";
 import Link from "next/link";
+import { Hamburger } from "../Hamburger/Hamburger";
 
 export const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -15,31 +16,12 @@ export const Navbar = () => {
         <Link className={styles.openFormBtn} href={"/new-application"}>
           Add application
         </Link>
-        <div className={styles.hamburger} onClick={handleClick}>
-          <div
-            className={styles.piece}
-            style={{
-              transform: isMenuOpened
-                ? "translateY(-50%) rotate(45deg)"
-                : "translateY(0) rotate(0)",
-              top: isMenuOpened ? "50%" : "0",
-            }}
-          />
-          <div
-            className={styles.piece}
-            style={{ opacity: isMenuOpened ? "0" : "1" }}
-          />
-          <div
-            className={styles.piece}
-            style={{
-              bottom: isMenuOpened ? "50%" : "0",
-              transform: isMenuOpened
-                ? "translateY(50%) rotate(-45deg)"
-                : "translateY(0) rotate(0)",
-            }}
-          />
-        </div>
+        <Hamburger isMenuOpened={isMenuOpened} onClick={handleClick} />
       </div>
+      <div
+        className={styles.menu}
+        style={{ height: isMenuOpened ? "100%" : "0" }}
+      ></div>
     </nav>
   );
 };
