@@ -31,16 +31,18 @@ const colors = [
 const ListItem = (props: ListItemProps) => {
   const [startAnimation, setStartAnimation] = useState(false);
   const { label, value, maxValue, idx } = props;
-  const percent = (value / maxValue!) * 100;
+  const percent = (value / maxValue) * 100;
   const { animatedValue } = useAnimatedValue(0, percent, startAnimation, 800);
   const itemRef = useRef<HTMLLIElement>(null);
 
   useLayoutEffect(() => {
     const onScroll = () => {
-      const bottomWindowBorderOffset =
-        window.scrollY + window.innerHeight - itemRef.current?.scrollHeight!;
-      if (bottomWindowBorderOffset > itemRef.current?.offsetTop!) {
-        setStartAnimation(true);
+      if (itemRef.current) {
+        const bottomWindowBorderOffset =
+          window.scrollY + window.innerHeight - itemRef.current.scrollHeight;
+        if (bottomWindowBorderOffset > itemRef.current.offsetTop) {
+          setStartAnimation(true);
+        }
       }
     };
 
