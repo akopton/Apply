@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import styles from "./list.module.css";
 
 type TItem = {
