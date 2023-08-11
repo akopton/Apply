@@ -1,8 +1,7 @@
-import { AuthBtn } from "@/components/AuthBtn/AuthBtn";
 import { CustomBarChart } from "@/components/CustomBarChart/CustomBarChart";
 import { CustomList } from "@/components/CustomList/CustomList";
-import { CustomPieChart } from "@/components/CustomPieChart/CustomPieChart";
 import { api } from "@/utils/api";
+import { useChartData } from "@/utils/useChartData";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -17,34 +16,14 @@ export default function DashboardPage() {
   const { data: applicationsCountForPlatform } =
     api.searchPlatform.getApplicationsForSinglePlatform.useQuery();
 
-  const chartDataPlatforms = applicationsCountForPlatform
-    ?.map((el) => {
-      return {
-        label: el.url,
-        value: el._count.applications,
-      };
-    })
-    .filter((el) => el.value > 0);
-
-  const chartData = applicationsCountForStatus
-    ?.map((el) => {
-      return {
-        label: el.name,
-        value: el._count.applications,
-      };
-    })
-    .filter((el) => el.value > 0);
-
-  const allApplicationsCountPlatform = applicationsCountForPlatform?.reduce(
-    (acc, curr) => {
-      return acc + curr._count.applications;
-    },
-    0
+  const { chartData: chartDataStatus, maxValue: maxValueStatus } = useChartData(
+    applicationsCountForStatus,
+    "name",
+    "_count.applications"
   );
 
-  const allApplicationsCountStatus = chartData?.reduce((acc, curr) => {
-    return acc + curr.value;
-  }, 0);
+  const { chartData: chartDataPlatforms, maxValue: maxValuePlatforms } =
+    useChartData(applicationsCountForPlatform, "url", "_count.applications");
 
   if (!sessionData?.user) {
     return <div>loading...</div>;
@@ -68,16 +47,13 @@ export default function DashboardPage() {
         </div>
         <div className="flex flex-col items-center gap-4">
           <span>Applications based on status:</span>
-          <CustomBarChart
-            data={chartData}
-            maxValue={allApplicationsCountStatus!}
-          />
+          <CustomBarChart data={chartDataStatus} maxValue={maxValueStatus!} />
         </div>
         <div className="flex flex-col items-center gap-4">
           <span>Applications based on searching platform:</span>
           <CustomBarChart
             data={chartDataPlatforms}
-            maxValue={allApplicationsCountPlatform!}
+            maxValue={maxValuePlatforms!}
           />
         </div>
       </main>
