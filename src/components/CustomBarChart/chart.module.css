@@ -23,6 +23,7 @@
 .bar {
     position: relative;
     animation: barLoading .5s linear;
+    cursor: default;
 }
 
 .barLabel {
