@@ -7,6 +7,6 @@ App lets you show them, filter all applications or show some analytics results t
 
 The app is basically made because of private purposes, but it is available at the link below:
 
-<a href="https://applyit.vercel.app">
+<a href="https://applyit.vercel.app">Click to try the demo.</a>
 
 For now it's a demo, but I'm still working on the functionalities.
