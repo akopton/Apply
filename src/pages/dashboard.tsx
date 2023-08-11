@@ -1,3 +1,4 @@
+import { StatusList } from "@/components/FilledBarsList/FilledBarsList";
 import { CustomList } from "@/components/CustomList/CustomList";
 import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
@@ -7,6 +8,36 @@ import Link from "next/link";
 export default function DashboardPage() {
   const { data: sessionData } = useSession();
   const applications = api.application.getTop.useQuery(4);
+  const { data: allApplicationsCount } =
+    api.application.getAllApplicationsCountForUser.useQuery();
+
+  const { data: applicationsForStatus } =
+    api.status.getApplicationsForSingleStatus.useQuery();
+
+  const { data: applicationsForPlatform } =
+    api.searchPlatform.getApplicationsForSinglePlatform.useQuery();
+
+  const mappedApplicationsForStatus = applicationsForStatus
+    ?.map((el) => {
+      const label = el.name;
+      const value = el._count.applications;
+      return {
+        label,
+        value,
+      };
+    })
+    .filter((el) => el.value > 0);
+
+  const mappedApplicationsForPlatform = applicationsForPlatform
+    ?.map((el) => {
+      const label = el.url;
+      const value = el._count.applications;
+      return {
+        label,
+        value,
+      };
+    })
+    .filter((el) => el.value > 0);
 
   if (!sessionData?.user) {
     return <div>loading...</div>;
@@ -27,6 +58,35 @@ export default function DashboardPage() {
           >
             Show all applications
           </Link>
+        </div>
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-center text-2xl">
+            Currently you are applying for
+          </span>
+          <span className="text-center text-3xl">{allApplicationsCount}</span>
+          <span className="text-center text-2xl">applications.</span>
+        </div>
+        <div className="flex w-full flex-col items-center gap-2">
+          <span className="text-center text-xl">
+            Your current applications based on status:
+          </span>
+          {applicationsForStatus && (
+            <StatusList
+              data={mappedApplicationsForStatus}
+              maxValue={allApplicationsCount}
+            />
+          )}
+        </div>
+        <div className="flex w-full flex-col items-center gap-2">
+          <span className="text-center text-xl">
+            Most popular search platforms:
+          </span>
+          {applicationsForPlatform && (
+            <StatusList
+              data={mappedApplicationsForPlatform}
+              maxValue={allApplicationsCount}
+            />
+          )}
         </div>
       </main>
     </>
