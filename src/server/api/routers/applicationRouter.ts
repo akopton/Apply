@@ -85,4 +85,15 @@ export const applicationRouter = createTRPCRouter({
       });
       return application;
     }),
+
+  getAllApplicationsCountForUser: protectedProcedure.query(async ({ ctx }) => {
+    const user = ctx.session.user;
+    const applications = await ctx.prisma.application.count({
+      where: {
+        ownerId: user.id,
+      },
+    });
+
+    return applications;
+  }),
 });
