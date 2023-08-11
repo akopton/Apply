@@ -61,7 +61,7 @@ export const CustomBarChart = (props: ChartProps) => {
       <div
         className={styles.chart}
         style={{
-          gap: `${100 / data?.length!}px`,
+          gap: `${data?.length && 100 / data.length}px`,
         }}
       >
         {data?.map((el, idx) => {
@@ -82,7 +82,7 @@ export const CustomBarChart = (props: ChartProps) => {
       <ul className={styles.labelsList}>
         {data?.map((el, idx) => {
           return (
-            <li className={styles.label}>
+            <li className={styles.label} key={idx}>
               <div
                 className={styles.labelColor}
                 style={{ background: colors[idx] }}
