@@ -7,6 +7,16 @@ App lets you show them, filter all applications or show some analytics results t
 
 The app is basically made because of private purposes, but it is available at the link below:
 
-<a href="https://applyit.vercel.app">Click to try the demo.</a>
+<a href="https://applyit.vercel.app">ApplyIT</a>
 
 For now it's a demo, but I'm still working on the functionalities.
+
+Tech stack in this project is:
+<ul>
+    <li>Next.js</li>
+    <li>Typescript</li>
+    <li>NextAuth</li>
+    <li>Prisma ORM</li>
+    <li>tRPC</li>
+    <li>PostgreSQL hosted by Supabase</li>
+</ul>
