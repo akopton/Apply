@@ -1,0 +1,38 @@
+.list {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    gap: 10px;
+}
+
+.listItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.itemLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px 0 2px;
+}
+
+.itemBar {
+    height: 25px;
+    background-color: var(--primary-font-transparent);
+    position: relative;
+}
+
+.itemBarFiller {
+    height: 100%;
+}
+
+.fillPercent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
