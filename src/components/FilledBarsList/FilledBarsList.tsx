@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./list.module.css";
+import { useAnimatedValue } from "@/utils/useAnimatedValue";
 
 type TItem = {
   label: string;
@@ -31,14 +32,14 @@ const ListItem = (props: ListItemProps) => {
   const [startAnimation, setStartAnimation] = useState(false);
   const { label, value, maxValue, idx } = props;
   const percent = (value / maxValue!) * 100;
+  const { animatedValue } = useAnimatedValue(0, percent, startAnimation, 800);
   const itemRef = useRef<HTMLLIElement>(null);
 
   useLayoutEffect(() => {
     const onScroll = () => {
-      if (
-        window.scrollY + window.innerHeight - itemRef.current?.scrollHeight! >
-        itemRef.current?.offsetTop!
-      ) {
+      const bottomWindowBorderOffset =
+        window.scrollY + window.innerHeight - itemRef.current?.scrollHeight!;
+      if (bottomWindowBorderOffset > itemRef.current?.offsetTop!) {
         setStartAnimation(true);
       }
     };
@@ -63,7 +64,7 @@ const ListItem = (props: ListItemProps) => {
             width: startAnimation ? `${percent}%` : "0%",
           }}
         />
-        <span className={styles.fillPercent}>{percent.toFixed(2)} %</span>
+        <span className={styles.fillPercent}>{animatedValue.toFixed(2)} %</span>
       </div>
     </li>
   );

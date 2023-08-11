@@ -63,11 +63,13 @@ export default function DashboardPage() {
           <span className="text-center text-2xl">
             Currently you are applying for
           </span>
-          <span className="text-center text-3xl">{allApplicationsCount}</span>
-          <span className="text-center text-2xl">applications.</span>
+          <span className="border-b-2 border-b-primaryColor px-2 text-center text-3xl">
+            <Link href={"/applications"}>{allApplicationsCount}</Link>
+          </span>
+          <span className="text-center text-2xl">offers.</span>
         </div>
         <div className="flex w-full flex-col items-center gap-2">
-          <span className="text-center text-xl">
+          <span className="text-center text-2xl">
             Your current applications based on status:
           </span>
           {applicationsForStatus && (
@@ -78,7 +80,7 @@ export default function DashboardPage() {
           )}
         </div>
         <div className="flex w-full flex-col items-center gap-2">
-          <span className="text-center text-xl">
+          <span className="text-center text-2xl">
             Most popular search platforms:
           </span>
           {applicationsForPlatform && (
