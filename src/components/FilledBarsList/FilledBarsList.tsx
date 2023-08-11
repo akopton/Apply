@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./list.module.css";
 
 type TItem = {
@@ -27,21 +28,39 @@ const colors = [
 ];
 
 const ListItem = (props: ListItemProps) => {
+  const [startAnimation, setStartAnimation] = useState(false);
   const { label, value, maxValue, idx } = props;
   const percent = (value / maxValue!) * 100;
+  const itemRef = useRef<HTMLLIElement>(null);
+
+  useLayoutEffect(() => {
+    const onScroll = () => {
+      if (
+        window.scrollY + window.innerHeight - itemRef.current?.scrollHeight! >
+        itemRef.current?.offsetTop!
+      ) {
+        setStartAnimation(true);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <li className={styles.listItem}>
+    <li className={styles.listItem} ref={itemRef}>
       <div className={styles.itemLabel}>
         <span>{label}</span>
         <span>{value}</span>
       </div>
       <div className={styles.itemBar}>
         <div
-          className={styles.itemBarFiller}
+          className={`${styles.itemBarFiller!} ${
+            startAnimation && styles.animated!
+          } `}
           style={{
             background: colors[idx],
-            width: `${percent}%`,
+            width: startAnimation ? `${percent}%` : "0%",
           }}
         />
         <span className={styles.fillPercent}>{percent.toFixed(2)} %</span>
@@ -55,7 +74,7 @@ export const StatusList = (props: ListProps) => {
   return (
     <ul className={styles.list}>
       {data?.map((el, idx) => {
-        return <ListItem {...el} maxValue={maxValue!} idx={idx} />;
+        return <ListItem {...el} maxValue={maxValue!} idx={idx} key={idx} />;
       })}
     </ul>
   );
