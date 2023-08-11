@@ -62,7 +62,7 @@ const ListItem = (props: ListItemProps) => {
             startAnimation && styles.animated!
           } `}
           style={{
-            background: colors[idx],
+            backgroundColor: colors[idx],
             width: startAnimation ? `${percent}%` : "0%",
           }}
         />

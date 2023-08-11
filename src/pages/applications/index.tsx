@@ -13,8 +13,8 @@ export default function ApplicationsPage() {
         <title>Applications</title>
       </Head>
       <main>
-        <Filter />
         <CustomList data={filteredData} />
+        <Filter />
       </main>
     </>
   );

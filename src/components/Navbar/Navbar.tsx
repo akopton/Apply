@@ -2,10 +2,20 @@ import { useState } from "react";
 import styles from "./nav.module.css";
 import Link from "next/link";
 import { Hamburger } from "../Hamburger/Hamburger";
+import { AuthBtn } from "../AuthBtn/AuthBtn";
 
 export const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const handleClick = () => setIsMenuOpened((prev) => !prev);
+  const handleClick = () => {
+    setIsMenuOpened((prev) => !prev);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = overflow === "hidden" ? "auto" : "hidden";
+  };
+
+  const links = [
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "/applications", label: "Your applications" },
+  ];
 
   return (
     <nav className={styles.navbar}>
@@ -20,8 +30,23 @@ export const Navbar = () => {
       </div>
       <div
         className={styles.menu}
-        style={{ height: isMenuOpened ? "100%" : "0" }}
-      ></div>
+        style={{ height: isMenuOpened ? "100vh" : "0" }}
+      >
+        <ul className={styles.menuLinks}>
+          {links.map((link, idx) => {
+            return (
+              <li key={idx} className={styles.link}>
+                <Link href={link.href} onClick={handleClick}>
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+          <li className={styles.signOutBtn}>
+            <AuthBtn signOut />
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };
