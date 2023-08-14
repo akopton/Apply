@@ -57,6 +57,9 @@ export const ApplicationForm = () => {
       );
     }
   );
+
+  CustomDateInput.displayName = "CustomDateInput";
+
   const reset = () => {
     setPosition({ value: "", error: "" });
     setCompany({ value: "", error: "" });
