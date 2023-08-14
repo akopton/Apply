@@ -30,7 +30,12 @@ export const Navbar = () => {
       </div>
       <div
         className={styles.menu}
-        style={{ height: isMenuOpened ? "100vh" : "0" }}
+        style={{
+          height: isMenuOpened ? "100vh" : "0",
+          position: "fixed",
+          top: "0",
+          left: "0",
+        }}
       >
         <ul className={styles.menuLinks}>
           {links.map((link, idx) => {

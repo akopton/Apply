@@ -4,9 +4,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    background: var(--primary-bg);
+    background-color: var(--primary-bg);
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 .logo {
@@ -32,15 +33,15 @@
 }
 
 .menu {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    backdrop-filter: blur(6px);
-    z-index: 10;
     transition: height .3s ease;
     overflow: hidden;
     max-height: 100vh;
+    background: var(--primary-bg);
+    z-index: -1;
 }
 
 .menuLinks {
