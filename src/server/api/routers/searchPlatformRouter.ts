@@ -15,6 +15,11 @@ export const searchPlatformRouter = createTRPCRouter({
             select: { applications: { where: { ownerId: user.id } } },
           },
         },
+        orderBy: {
+          applications: {
+            _count: "desc",
+          },
+        },
       });
       return list;
     }

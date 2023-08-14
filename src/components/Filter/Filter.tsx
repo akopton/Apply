@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import styles from "./filter.module.css";
 import { ApplicationsContext } from "@/context/ApplicationsContext";
 import { api } from "@/utils/api";
+import { AiOutlineClose } from "react-icons/ai";
 
 export const Filter = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -82,6 +83,9 @@ export const Filter = () => {
         className={styles.filtersModal}
         style={{ bottom: showFilters ? "0" : "-100%" }}
       >
+        <div className={styles.closeBtn} onClick={() => setShowFilters(false)}>
+          <AiOutlineClose />
+        </div>
         <div className={styles.filtersSet}>
           <span className={styles.filtersSetTitle}>Added X days ago:</span>
           <div className={styles.filtersSetBtns}>
