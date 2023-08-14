@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Ref, forwardRef, useRef, useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import { CustomTextarea } from "../CustomTextarea/CustomTextarea";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -6,6 +6,8 @@ import styles from "./form.module.css";
 import { api } from "@/utils/api";
 import { CustomPicker } from "../CustomPicker/CustomPicker";
 import { LoadingStatusModal } from "../LoadingStatusModal/LoadingStatusModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const ApplicationForm = () => {
   const statusList = api.status.getAll.useQuery();
@@ -24,7 +26,37 @@ export const ApplicationForm = () => {
   const [comment, setComment] = useState("");
 
   const [showCommentInput, setShowCommentInput] = useState(false);
+  const [date, setDate] = useState<Date | null>(new Date());
+  const [isCalendarOpened, setIsCalendarOpened] = useState<boolean>(false);
 
+  const CustomDateInput = forwardRef(
+    (
+      props: {
+        value: string;
+        onClick: () => void;
+        disabled: boolean;
+        startOpen: boolean;
+      },
+      ref: Ref<HTMLButtonElement>
+    ) => {
+      return (
+        <button
+          type="button"
+          className={styles.dateBtn}
+          style={{
+            opacity: props.disabled ? "0.4" : "1",
+            borderColor: isCalendarOpened
+              ? "var(--secondary-color)"
+              : "var(--primary-color)",
+          }}
+          ref={ref}
+          onClick={props.onClick}
+        >
+          {props.value}
+        </button>
+      );
+    }
+  );
   const reset = () => {
     setPosition({ value: "", error: "" });
     setCompany({ value: "", error: "" });
@@ -128,7 +160,7 @@ export const ApplicationForm = () => {
         placeholder="*Company name"
         error={company.error}
       />
-      <div className="relative h-20">
+      <div className="relative flex h-28 flex-col items-center gap-3">
         <CustomPicker
           data={statusList.data ? statusList.data : []}
           placeholder="*Choose status..."
@@ -140,6 +172,24 @@ export const ApplicationForm = () => {
           }
         />
         <span className={styles.dropdownError}>{status.error}</span>
+        <DatePicker
+          onCalendarOpen={() => setIsCalendarOpened(true)}
+          onCalendarClose={() => setIsCalendarOpened(false)}
+          disabled={status.value === "" ? true : false}
+          dateFormat="dd.MM.yyyy"
+          selected={date}
+          onChange={(date) => setDate(date)}
+          customInput={
+            <CustomDateInput
+              startOpen
+              disabled
+              value={""}
+              onClick={() => {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          }
+        />
       </div>
       <div className="relative h-20">
         <CustomPicker

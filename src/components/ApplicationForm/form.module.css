@@ -85,3 +85,13 @@
     height: 100%;
     z-index: 0;
 }
+
+.dateBtn {
+    border: 2px solid var(--primary-color);
+    padding: 5px 10px;
+    border-radius: var(--btn-border-radius);
+}
+
+.dateBtn:hover {
+    border-color: var(--secondary-color);
+}
