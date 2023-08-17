@@ -15,6 +15,7 @@ export const applicationRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session.user;
+
       const application = await ctx.prisma.application.create({
         data: {
           position: input.position,
@@ -82,6 +83,15 @@ export const applicationRouter = createTRPCRouter({
           ownerId: user.id,
           id: input,
         },
+        include: {
+          platform: true,
+          status: true,
+          statusUpdates: {
+            include: {
+              status: true,
+            },
+          },
+        },
       });
       return application;
     }),
@@ -96,4 +106,15 @@ export const applicationRouter = createTRPCRouter({
 
     return applications;
   }),
+
+  deleteWithId: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const deletedApplication = await ctx.prisma.application.delete({
+        where: {
+          id: input,
+        },
+      });
+      return deletedApplication;
+    }),
 });
