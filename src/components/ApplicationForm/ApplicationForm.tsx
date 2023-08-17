@@ -14,6 +14,8 @@ export const ApplicationForm = () => {
   const platformList = api.searchPlatform.getAll.useQuery();
   const { mutateAsync: addApplication, isSuccess } =
     api.application.add.useMutation();
+  const { mutateAsync: addStatusUpdate } =
+    api.statusUpdate.addNew.useMutation();
 
   const [position, setPosition] = useState({ value: "", error: "" });
   const [company, setCompany] = useState({
@@ -129,12 +131,17 @@ export const ApplicationForm = () => {
     if (!validateForm()) return;
 
     try {
-      await addApplication({
+      const addedApplication = await addApplication({
         position: position.value,
         company: company.value,
         status: status.value,
         platform: platform.value,
         comment,
+      });
+      await addStatusUpdate({
+        status: status.value,
+        updatedAt: date ? date : new Date(),
+        applicationId: addedApplication.id,
       });
     } catch (e) {
       console.error(e);
