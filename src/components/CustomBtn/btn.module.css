@@ -3,3 +3,9 @@
     border-radius: var(--btn-border-radius);
     padding: 6px 10px;
 }
+
+.btnContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
