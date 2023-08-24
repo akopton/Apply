@@ -72,7 +72,7 @@ const ListItem = (props: ListItemProps) => {
   );
 };
 
-export const StatusList = (props: ListProps) => {
+export const FilledBarsList = (props: ListProps) => {
   const { data, maxValue } = props;
   return (
     <ul className={styles.list}>
