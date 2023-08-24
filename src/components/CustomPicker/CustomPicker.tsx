@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import styles from "./picker.module.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { SearchPlatform, Status } from "@prisma/client";
+import { ActionsModal } from "../ActionsModal/ActionsModal";
 
 type ArrayElement = { id: string; [key: string]: string };
 
@@ -61,19 +62,12 @@ export const CustomPicker = (props: PickerProps) => {
       >
         {selectedItem ? selectedItem : placeholder}
       </div>
-      <div
-        className={styles.modal}
-        style={{ bottom: showModal ? "0" : "-100%" }}
+
+      <ActionsModal
+        isModalOpened={showModal}
+        close={() => setShowModal(false)}
+        title={placeholder.replace("*", "")}
       >
-        <div className={styles.modalTop}>
-          <span className={styles.modalTitle}>{placeholder}</span>
-          <div
-            className={styles.modalClose}
-            onClick={() => setShowModal(false)}
-          >
-            <AiOutlineCloseCircle />
-          </div>
-        </div>
         {searchInput && (
           <div className={styles.searchInputWrapper}>
             <input
@@ -98,10 +92,7 @@ export const CustomPicker = (props: PickerProps) => {
             );
           })}
         </ul>
-      </div>
-      {showModal && (
-        <div className={styles.blur} onClick={() => setShowModal(false)}></div>
-      )}
+      </ActionsModal>
     </>
   );
 };

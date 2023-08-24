@@ -8,6 +8,7 @@ import { CustomPicker } from "../CustomPicker/CustomPicker";
 import { LoadingStatusModal } from "../LoadingStatusModal/LoadingStatusModal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ActionsModal } from "../ActionsModal/ActionsModal";
 
 export const ApplicationForm = () => {
   const statusList = api.status.getAll.useQuery();
@@ -222,32 +223,18 @@ export const ApplicationForm = () => {
       >
         Add comment
       </button>
-      <div
-        className={styles.commentInputWrapper}
-        style={{ bottom: showCommentInput ? "0" : "-100%" }}
+
+      <ActionsModal
+        isModalOpened={showCommentInput}
+        close={() => setShowCommentInput(false)}
+        title="Add your comment"
       >
-        <div className={styles.commentInputHeader}>
-          <span>Add your comment</span>
-          <button
-            type="button"
-            className={styles.commentInputHeaderIcon}
-            onClick={() => setShowCommentInput(false)}
-          >
-            <AiOutlineCheckCircle />
-          </button>
-        </div>
         <CustomTextarea
           value={comment}
           placeholder="Type your comment..."
           onChange={handleComment}
         />
-      </div>
-      {showCommentInput && (
-        <div
-          className={styles.commentBlur}
-          onClick={() => setShowCommentInput(false)}
-        />
-      )}
+      </ActionsModal>
       <button className={styles.addBtn} type="submit">
         Save
       </button>
