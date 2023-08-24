@@ -117,4 +117,27 @@ export const applicationRouter = createTRPCRouter({
       });
       return deletedApplication;
     }),
+
+  updateStatusWithId: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        status: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const application = await ctx.prisma.application.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          status: {
+            connect: {
+              name: input.status as status,
+            },
+          },
+        },
+      });
+      return application;
+    }),
 });
