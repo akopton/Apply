@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
-import styles from "./filter.module.css";
 import { ApplicationsContext } from "@/context/ApplicationsContext";
 import { api } from "@/utils/api";
-import { AiOutlineClose } from "react-icons/ai";
+import { ActionsModal } from "../ActionsModal/ActionsModal";
+import styles from "./filter.module.css";
 
 export const Filter = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -79,13 +79,11 @@ export const Filter = () => {
           onChange={handleSearch}
         />
       </div>
-      <div
-        className={styles.filtersModal}
-        style={{ bottom: showFilters ? "0" : "-100%" }}
+
+      <ActionsModal
+        isModalOpened={showFilters}
+        close={() => setShowFilters(false)}
       >
-        <div className={styles.closeBtn} onClick={() => setShowFilters(false)}>
-          <AiOutlineClose />
-        </div>
         <div className={styles.filtersSet}>
           <span className={styles.filtersSetTitle}>Added X days ago:</span>
           <div className={styles.filtersSetBtns}>
@@ -159,10 +157,7 @@ export const Filter = () => {
               })}
           </div>
         </div>
-      </div>
-      {showFilters && (
-        <div className={styles.blur} onClick={() => setShowFilters(false)} />
-      )}
+      </ActionsModal>
     </>
   );
 };
