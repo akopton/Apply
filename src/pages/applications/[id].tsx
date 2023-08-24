@@ -46,7 +46,7 @@ export default function ApplicationPage() {
       updatedAt: new Date(),
     });
 
-    application.refetch();
+    await application.refetch();
   };
 
   useEffect(() => {
