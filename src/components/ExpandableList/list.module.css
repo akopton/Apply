@@ -1,0 +1,12 @@
+.listWrapper {
+    width: 100%;
+}
+
+.listHeader {
+
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
