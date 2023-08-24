@@ -1,4 +1,4 @@
-import { CustomList } from "@/components/CustomList/CustomList";
+import { ApplicationsList } from "@/components/ApplicationsList/ApplicationsList";
 import { useContext } from "react";
 import { Filter } from "@/components/Filter/Filter";
 import { ApplicationsContext } from "@/context/ApplicationsContext";
@@ -13,7 +13,7 @@ export default function ApplicationsPage() {
         <title>Applications</title>
       </Head>
       <main>
-        <CustomList data={filteredData} />
+        <ApplicationsList data={filteredData} />
         <Filter />
       </main>
     </>
