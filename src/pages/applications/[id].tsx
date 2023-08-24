@@ -134,8 +134,8 @@ export default function ApplicationPage() {
                   <li
                     className="border-2 border-red-500"
                     key={el.id}
-                    onClick={() => {
-                      updateApplicationStatus(el.name);
+                    onClick={async () => {
+                      await updateApplicationStatus(el.name);
                       setShowStatusEdit(false);
                     }}
                   >
