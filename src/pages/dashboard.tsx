@@ -1,5 +1,5 @@
-import { StatusList } from "@/components/FilledBarsList/FilledBarsList";
-import { CustomList } from "@/components/CustomList/CustomList";
+import { FilledBarsList } from "@/components/FilledBarsList/FilledBarsList";
+import { ApplicationsList } from "@/components/ApplicationsList/ApplicationsList";
 import { api } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -51,7 +51,7 @@ export default function DashboardPage() {
       <main className="flex flex-col items-center gap-10 bg-primaryBg py-5">
         <div className="flex w-full flex-col gap-3">
           <h2 className="text-center text-2xl">Recently added applications</h2>
-          {applications.data && <CustomList data={applications.data} />}
+          {applications.data && <ApplicationsList data={applications.data} />}
           <Link
             href={"/applications"}
             className="self-center rounded-xl border-2 px-3 py-2"
@@ -73,7 +73,7 @@ export default function DashboardPage() {
             Your current applications based on status:
           </span>
           {applicationsForStatus && (
-            <StatusList
+            <FilledBarsList
               data={mappedApplicationsForStatus}
               maxValue={allApplicationsCount}
             />
@@ -84,7 +84,7 @@ export default function DashboardPage() {
             Most popular search platforms:
           </span>
           {applicationsForPlatform && (
-            <StatusList
+            <FilledBarsList
               data={mappedApplicationsForPlatform}
               maxValue={allApplicationsCount}
             />
