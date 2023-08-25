@@ -1,12 +1,16 @@
 .listWrapper {
     width: 100%;
+    padding: 10px;
 }
 
 .listHeader {
-
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .list {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }

@@ -16,11 +16,22 @@ export const ExpandableList = ({
 
   return (
     <div className={styles.listWrapper}>
-      <h2 className={styles.listHeader}>
-        <button type="button" onClick={() => setShowContent((prev) => !prev)}>
-          {headerText} {headerIcon && headerIcon}
-        </button>
-      </h2>
+      <button
+        className={styles.listHeader}
+        type="button"
+        onClick={() => setShowContent((prev) => !prev)}
+      >
+        <span style={{ fontSize: "20px" }}>{headerText}</span>{" "}
+        <span
+          style={{
+            rotate: showContent ? "180deg" : "0deg",
+            transition: ".3s ease",
+            fontSize: "24px",
+          }}
+        >
+          {headerIcon && headerIcon}
+        </span>
+      </button>
       {showContent && <ul className={styles.list}>{children}</ul>}
     </div>
   );
