@@ -7,11 +7,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { IoReturnDownBack } from "react-icons/io5";
+import { MdOutlineExpandMore } from "react-icons/md";
 
 export default function ApplicationPage() {
   const router = useRouter();
   const id = router.query.id as string;
   const application = api.application.getSingleById.useQuery(id);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const [applicationStatus, setApplicationStatus] = useState(
     application.data?.status.name
@@ -29,9 +32,11 @@ export default function ApplicationPage() {
     api.application.updateStatusWithId.useMutation();
 
   const deleteApplication = async () => {
-    if (!application.data) return;
-
-    await deleteWithId(application.data.id);
+    if (!id) return;
+    const result = await deleteWithId(id);
+    if (result) {
+      router.back();
+    }
   };
 
   const updateApplicationStatus = async (status: string) => {
@@ -71,7 +76,7 @@ export default function ApplicationPage() {
           <CustomBtn
             type="button"
             text="delete"
-            onClick={deleteApplication}
+            onClick={() => setShowDeleteModal(true)}
             additionalStyles={{ fontSize: "20px" }}
           />
         </div>
@@ -106,8 +111,35 @@ export default function ApplicationPage() {
             </div>
           </div>
         )}
+        <ActionsModal
+          isModalOpened={showDeleteModal}
+          close={() => setShowDeleteModal(false)}
+          title={`Are you sure to delete this application?`}
+        >
+          <div className="flex w-full items-center justify-around p-5">
+            <CustomBtn
+              type="button"
+              text="Delete"
+              onClick={deleteApplication}
+              additionalStyles={{ fontSize: "24px", padding: "6px 12px" }}
+            />
+            <CustomBtn
+              type="button"
+              text="Cancel"
+              onClick={() => setShowDeleteModal(false)}
+              additionalStyles={{
+                fontSize: "24px",
+                borderColor: "var(--secondary-color)",
+                padding: "6px 12px",
+              }}
+            />
+          </div>
+        </ActionsModal>
 
-        <ExpandableList headerText="Updates history">
+        <ExpandableList
+          headerText="Updates history"
+          headerIcon={<MdOutlineExpandMore />}
+        >
           {application?.data?.statusUpdates.map((el) => {
             return (
               <li

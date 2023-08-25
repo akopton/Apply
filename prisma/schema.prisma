@@ -93,7 +93,7 @@ model ApplicationStatusUpdate {
     id            String      @id @default(cuid())
     status        Status      @relation(fields: [statusId], references: [id])
     updatedAt     DateTime
-    application   Application @relation(fields: [applicationId], references: [id])
+    application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
     applicationId String
     statusId      String
 }
