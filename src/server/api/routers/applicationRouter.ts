@@ -54,6 +54,13 @@ export const applicationRouter = createTRPCRouter({
       orderBy: {
         addedAt: "desc",
       },
+      include: {
+        statusUpdates: {
+          include: {
+            status: true,
+          },
+        },
+      },
     });
 
     return applications;
@@ -67,6 +74,11 @@ export const applicationRouter = createTRPCRouter({
       },
       orderBy: {
         addedAt: "desc",
+      },
+      include: {
+        statusUpdates: {
+          include: { status: true },
+        },
       },
       take: input,
     });

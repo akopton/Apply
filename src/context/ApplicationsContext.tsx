@@ -1,9 +1,13 @@
 import { api } from "@/utils/api";
-import { Application } from "@prisma/client";
-import { createContext, useMemo, useState } from "react";
+import { Application, Prisma } from "@prisma/client";
+import { createContext, useEffect, useMemo, useState } from "react";
+
+type ApplicationWithStatus = Prisma.ApplicationGetPayload<{
+  include: { statusUpdates: { include: { status: true } } };
+}>;
 
 type TContext = {
-  filteredData: Application[];
+  filteredData: ApplicationWithStatus[];
   searchByValue: (value: string) => void;
   applyFilters: (filters: {
     days?: string;
@@ -62,7 +66,10 @@ export const ApplicationsProvider = ({
         .filter((el) => {
           if (!filters?.days) return el;
           const currentDate = new Date();
-          const addedAt = new Date(el.addedAt);
+          const sentStatus = el.statusUpdates.filter(
+            (el) => el.status.name === "sent"
+          );
+          const addedAt = new Date(sentStatus[0]?.updatedAt!);
           const days = parseInt(filters?.days);
           const daysAgo = new Date(
             currentDate.getTime() - days * 24 * 60 * 60 * 1000
