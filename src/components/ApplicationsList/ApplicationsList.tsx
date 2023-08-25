@@ -1,16 +1,22 @@
-import { Application } from "@prisma/client";
+import { Application, Prisma } from "@prisma/client";
 import styles from "./list.module.css";
 import Link from "next/link";
 import { getFullDateString } from "@/utils/getFullDateString";
 
+type ApplicationWithStatus = Prisma.ApplicationGetPayload<{
+  include: { statusUpdates: { include: { status: true } } };
+}>;
+
 type ListProps = {
-  data: Application[];
+  data: ApplicationWithStatus[];
 };
 
-type ListItemProps = Application;
+type ListItemProps = ApplicationWithStatus;
 
 const ListItem = (props: ListItemProps) => {
-  const { id, position, company, addedAt } = props;
+  const { id, position, company, statusUpdates } = props;
+  const sentStatus = statusUpdates.filter((el) => el.status.name === "sent");
+  const sentDate = sentStatus[0]?.updatedAt;
   return (
     <li className={styles.listItem}>
       <Link
@@ -25,7 +31,7 @@ const ListItem = (props: ListItemProps) => {
       >
         <span>{position}</span>
         <span>{company}</span>
-        <span>{getFullDateString(addedAt)}</span>
+        <span>{getFullDateString(sentDate!)}</span>
       </Link>
     </li>
   );
