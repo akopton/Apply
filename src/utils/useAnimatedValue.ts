@@ -21,7 +21,7 @@ export const useAnimatedValue = (
     let newValue = initialValue;
 
     const timer = setInterval(() => {
-      if (value - newValue > 20) {
+      if (value - newValue >= 20) {
         newValue += 1;
       } else if (value - newValue < 20) {
         newValue = newValue + 0.1;
