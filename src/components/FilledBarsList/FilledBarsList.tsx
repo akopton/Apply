@@ -37,17 +37,20 @@ const ListItem = (props: ListItemProps) => {
 
   useLayoutEffect(() => {
     const onScroll = () => {
-      if (itemRef.current) {
-        const bottomWindowBorderOffset =
-          window.scrollY + window.innerHeight - itemRef.current.scrollHeight;
-        if (bottomWindowBorderOffset > itemRef.current.offsetTop) {
-          setStartAnimation(true);
-        }
+      if (!itemRef.current) return;
+      const bottomWindowBorderOffset =
+        window.scrollY + window.innerHeight - itemRef.current.scrollHeight;
+      if (bottomWindowBorderOffset > itemRef.current.offsetTop) {
+        setStartAnimation(true);
       }
     };
 
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const listener = () => {
+      onScroll();
+      window.addEventListener("scroll", onScroll);
+    };
+
+    return () => listener();
   }, []);
 
   return (
