@@ -69,8 +69,8 @@ export const ApplicationsProvider = ({
           const sentStatus = el.statusUpdates.filter(
             (el) => el.status.name === "sent"
           );
-          const sentDate: Date = sentStatus[0]?.updatedAt as Date;
-          const addedAt = new Date(sentDate);
+          const applicationSentDate = sentStatus[0]?.updatedAt!;
+          const addedAt = new Date(applicationSentDate);
           const days = parseInt(filters?.days);
           const daysAgo = new Date(
             currentDate.getTime() - days * 24 * 60 * 60 * 1000
