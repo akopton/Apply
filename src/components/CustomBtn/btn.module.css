@@ -2,6 +2,7 @@
     border: 2px solid var(--primary-color);
     border-radius: var(--btn-border-radius);
     padding: 6px 10px;
+    cursor: pointer;
 }
 
 .btnContent {

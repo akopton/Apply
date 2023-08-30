@@ -3,8 +3,10 @@ import styles from "./nav.module.css";
 import Link from "next/link";
 import { Hamburger } from "../Hamburger/Hamburger";
 import { AuthBtn } from "../AuthBtn/AuthBtn";
+import { useRouter } from "next/router";
 
 export const Navbar = () => {
+  const router = useRouter();
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const handleClick = () => {
     setIsMenuOpened((prev) => !prev);
@@ -36,7 +38,14 @@ export const Navbar = () => {
         <ul className={styles.menuLinks}>
           {links.map((link, idx) => {
             return (
-              <li key={idx} className={styles.link}>
+              <li
+                key={idx}
+                className={`${
+                  router.asPath.includes(link.href)
+                    ? styles.linkActive
+                    : styles.link
+                }`}
+              >
                 <Link href={link.href} onClick={handleClick}>
                   {link.label}
                 </Link>
