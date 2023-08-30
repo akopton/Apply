@@ -27,13 +27,13 @@
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    border: 2px solid var(--primary-color);
+    border: 3px solid var(--primary-color);
     padding: 6px 10px;
     border-radius: var(--btn-border-radius);
 }
 
 .menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -42,6 +42,14 @@
     max-height: 100vh;
     background: var(--primary-bg);
     z-index: -1;
+}
+
+.menuClosed {
+    height: 0
+}
+
+.menuOpened {
+    height: 100vh
 }
 
 .menuLinks {
@@ -56,4 +64,59 @@
 
 .link {
     font-size: 30px;
+    position: relative;
+    padding: 0 5px;
+}
+
+.link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 3px;
+    background-color: var(--primary-color);
+    transition: width .3s ease;
+}
+
+.link:hover:after {
+    width: 100%;
+    transition: width .3s ease;
+}
+
+@media screen and (min-width: 1024px) {
+    .logo {
+        padding: 0 50px;
+        font-size: 40px;
+    }
+    
+    .navbar {
+        justify-content: unset;
+    }
+
+    .navBtns {
+        margin-left: auto;
+    }
+
+    .openFormBtn {
+        transition: .3s ease;
+        font-size: 20px;
+    }
+
+    .openFormBtn:hover {
+        border-radius: 24px;
+        transition: .3s ease;
+    }
+    
+    .menu {
+        height: 100%;
+        position: static;
+        display: flex;
+    }
+
+    .menuLinks {
+        flex-direction: row;
+        padding: 0 50px;
+    }
 }

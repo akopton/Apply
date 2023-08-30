@@ -26,3 +26,9 @@
 .piece:nth-of-type(3) {
     bottom: 0;
 }
+
+@media screen and (min-width: 1024px) {
+    .hamburger {
+        display: none;
+    }
+}

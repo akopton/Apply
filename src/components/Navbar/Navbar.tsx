@@ -29,13 +29,9 @@ export const Navbar = () => {
         <Hamburger isMenuOpened={isMenuOpened} onClick={handleClick} />
       </div>
       <div
-        className={styles.menu}
-        style={{
-          height: isMenuOpened ? "100vh" : "0",
-          position: "fixed",
-          top: "0",
-          left: "0",
-        }}
+        className={`${isMenuOpened ? styles.menuOpened! : styles.menuClosed!} ${
+          styles.menu
+        }`}
       >
         <ul className={styles.menuLinks}>
           {links.map((link, idx) => {
